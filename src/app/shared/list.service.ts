@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Media } from '../list-page/media.model';
 import { StreamInfo } from '../list-page/streamInfo.model';
 import { Subject } from 'rxjs';
+import { Price } from '../list-page/price.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ListService implements OnInit {
     new Media ('The Dark Knight Rises', 2012, new StreamInfo ('netflix', 'subscription', 'https://www.netflix.com/title/70213514/'), 'tt1345836', 49026, 'movie', 'watching' ),
     new Media ('Batman Forever', 1995, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/506c2994-fa03-452b-9131-e25d68fac01f', 'uhd'), 'tt1877830', 414, 'movie', 'want' ),
     new Media ('Batman Returns', 1992, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/7ebb10fa-4552-405c-a5d2-3cc5b21193c7', 'uhd'), 'tt0103776', 364, 'movie', 'want' ),
-    new Media ('Batman', 1966, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/5e0da7f2-7422-4e58-8023-60bbd37adf33'), 'tt0060153', 2661, 'movie', 'watched' )
+    new Media ('Batman', 1966, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/5e0da7f2-7422-4e58-8023-60bbd37adf33', null, new Price(3.99, 'usd')), 'tt0060153', 2661, 'movie', 'watched')
   ];
 
 
