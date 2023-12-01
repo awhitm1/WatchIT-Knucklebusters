@@ -7,6 +7,7 @@ export class Media {
     public service: StreamInfo,
     public imdbId: string,
     public tmdbId: number,
-    public type: string
+    public type: string,
+    public status?: string
   ){}
 }

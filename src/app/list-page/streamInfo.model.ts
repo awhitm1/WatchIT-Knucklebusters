@@ -6,6 +6,6 @@ export class StreamInfo {
     public streamingType: string,
     public linkUrl: string,
     public quality?: string,
-    public price?: Price
+    public price?: Price,
   ){}
 }
