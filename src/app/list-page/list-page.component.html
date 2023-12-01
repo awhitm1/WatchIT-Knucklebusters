@@ -1,1 +1,25 @@
-<p>list-page works!</p>
+<div class="table-responsive">
+  <div class="table table-light table-striped table-hover caption-top">
+    <caption>Ready to Watch!</caption>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Year</th>
+      <th scope="col">Service</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let item of myList, index as i">
+      <th scope="row">{{i+1}}</th>
+      <td>{{item.title}}</td>
+      <td>{{item.year}}</td>
+      <td>{{item.service.service}}</td>
+      <td><a href={{item.service.linkUrl}}><button class="btn btn-primary">Watch!</button></a></td>
+    </tr>
+  </tbody>
+
+  </div>
+</div>
