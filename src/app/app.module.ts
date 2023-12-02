@@ -10,6 +10,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ListPageComponent } from './list-page/list-page.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

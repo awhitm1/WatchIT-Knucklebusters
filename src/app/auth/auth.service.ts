@@ -1,14 +1,56 @@
 import { Injectable } from '@angular/core';
+import { AuthResponseData } from './auth.component';
+import { BehaviorSubject, tap } from 'rxjs';
+import { User } from '../shared/user.model';
+import { HttpClient } from '@angular/common/http';
 
 const SIGN_UP_URL =
 `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=`;
 const SIGN_IN_URL =
 `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=`;
 
+const AUTH_API_KEY = 'AIzaSyB3dC7CPHd-IrfIM7ijbMxIvLEpM-PMCiE';
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+
+  signUp(email: string, password: string) {
+    return this.http.post<AuthResponseData>(SIGN_UP_URL + AUTH_API_KEY, {
+      email,
+      password,
+      returnSecureToken: true
+    }).pipe(
+      tap(res => {
+        const { email, localId, idToken, expiresIn } = res;
+        this.handleAuth(email, localId, idToken, +expiresIn)
+      })
+    )
+  }
+
+  login(email: string, password: string) {
+    return this.http.post<AuthResponseData>(SIGN_IN_URL + AUTH_API_KEY, {
+      email,
+      password,
+      returnSecureToken: true
+    }).pipe(
+      tap(res => {
+        const { email, localId, idToken, expiresIn } = res;
+        this.handleAuth(email, localId, idToken, +expiresIn)
+      })
+    )
+  }
+
+  handleAuth(email: string, userId: string, token: string, expiresIn: number) {
+    const expDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const formUser = new User(email, token, expDate, userId,);
+    this.currentUser.next(formUser);
+    localStorage.setItem("userData", JSON.stringify(formUser));
+  }
 }
