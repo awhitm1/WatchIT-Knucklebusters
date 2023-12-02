@@ -10,6 +10,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ListPageComponent } from './list-page/list-page.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,8 @@ import { ListPageComponent } from './list-page/list-page.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

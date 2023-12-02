@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Media } from './media.model';
 import { StreamInfo } from './streamInfo.model';
-import { ListService } from '../shared/list.service';
+import { ListService, TitleDetailsResponseData } from '../shared/list.service';
 import { Subscription } from 'rxjs';
+import { TitleDetails } from './titleDetails.model';
 
 @Component({
   selector: 'app-list-page',
@@ -11,7 +12,9 @@ import { Subscription } from 'rxjs';
 })
 export class ListPageComponent implements OnInit, OnDestroy{
   listSub: Subscription;
+  detailsSub: Subscription;
   myMedia: Media[];
+  titleDetails: TitleDetailsResponseData;
 
   constructor(private listsvc: ListService){}
 
@@ -21,14 +24,27 @@ export class ListPageComponent implements OnInit, OnDestroy{
     this.listSub = this.listsvc.listObs.subscribe(obs => {
       this.myMedia = obs;
     });
-      console.log("myMedia: ", this.myMedia)
+
+    this.detailsSub = this.listsvc.detailsObs.subscribe(obs => {
+      this.titleDetails = obs;
+      console.log("titleDetails: ", this.titleDetails)
+    })
+
+    console.log("myMedia: ", this.myMedia)
+
   }
 
   ngOnDestroy(): void {
     this.listSub.unsubscribe();
+    this.detailsSub.unsubscribe();
   }
 
   delMedia(id: string){
     this.listsvc.delMedia(id)
+  }
+
+  getInfo(id: number){
+    this.listsvc.getDetails(id);
+
   }
 }
