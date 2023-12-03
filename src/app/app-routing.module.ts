@@ -8,9 +8,9 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 
 const routes: Routes = [
   {path: '', redirectTo: '/landing-page', pathMatch: 'full'},
-  {path: '/landing-page', component: LandingPageComponent},
-  {path: '/auth', component: AuthComponent},
-  {path: '/home-page', component: HomePageComponent},
+  {path: 'landing-page', component: LandingPageComponent},
+  {path: 'auth', component: AuthComponent},
+  {path: 'home-page', component: HomePageComponent},
   {path: 'list-page', component: ListPageComponent},
   {path: 'search-results', component: SearchResultsComponent}
 ];
