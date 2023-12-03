@@ -11,6 +11,9 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ListPageComponent } from './list-page/list-page.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogModule } from '@angular/cdk/dialog';
+import { ItemDetailsComponent } from './list-page/item-details/item-details.component'
 
 @NgModule({
   declarations: [
@@ -20,12 +23,16 @@ import { HttpClientModule } from '@angular/common/http';
     HomePageComponent,
     SearchResultsComponent,
     NavbarComponent,
-    ListPageComponent
+    ListPageComponent,
+    ItemDetailsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    DialogModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

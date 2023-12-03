@@ -1,0 +1,32 @@
+<!-- <div class="card mb-3" >
+  <div class="row g-0">
+    <div class="col-4">
+      <img src="{{ tmdb_img_baseURL + this.selectedItem.poster_path}}" class="img-fluid rounded-start" width="100"/>
+    </div>
+    <div class="col-8">
+      <div class="card-body">
+        <h5 class="card-title">{{this.selectedItem.title}}</h5>
+        <h6 class="card-title"><em>{{this.selectedItem.tagline}}</em></h6>
+        <p class="card-text">{{this.selectedItem.overview}}</p>
+      </div>
+    </div>
+
+    <div class="card-footer bg-transparent border-success">
+      <p><small class="text-footer">Release Date: {{this.selectedItem.release_date}}</small></p>
+      <p><small class="text-body-secondary">Length: {{this.selectedItem.runtime}} minutes</small></p>
+    </div>
+
+  </div>
+</div> -->
+<!-- <img src="{{ tmdb_img_baseURL + this.selectedItem.backdrop_path}}" width="400"/> -->
+
+<div class="card text-bg-dark">
+  <img src="{{ tmdb_img_baseURL + this.selectedItem.backdrop_path}}" class="card-img" style="opacity: 0.5" alt="...">
+  <div class="card-img-overlay">
+    <h5 class="card-title">{{this.selectedItem.title}} </h5>
+    <h6 class="card-title"><em>{{this.selectedItem.tagline}}</em></h6>
+    <p class="card-text">{{this.selectedItem.overview}}</p>
+    <p class="card-text"><small>Release Date: {{this.selectedItem.release_date}}</small></p>
+    <p class="card-text"><small>Length: {{this.selectedItem.runtime}} minutes</small></p>
+  </div>
+</div>
