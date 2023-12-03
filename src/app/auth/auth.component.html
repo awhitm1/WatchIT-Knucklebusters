@@ -1,1 +1,68 @@
-<p>auth works!</p>
+<div class="signup form-group" *ngIf="!hasAccount">
+  <form
+  (ngSubmit)="onSubmit(signupForm)"
+  #signupForm="ngForm">
+  <label for="firstName">First Name: </label>
+  <input
+    #firstNameInput="ngModel"
+    type="text"
+    name="firstName"
+    id="firstName"
+    required
+    ngModel>
+  <label for="lastName">Last Name: </label>
+  <input
+    #lastNameInput="ngModel"
+    type="text"
+    name="lastName"
+    id="lastName"
+    required
+    ngModel>
+  <label for="email">Email: </label>
+  <input
+    #emailInput="ngModel"
+    type="email"
+    name="email"
+    id="email"
+    required
+    ngModel>
+  <label for="password">Password: </label>
+  <input
+    #passwordInput="ngModel"
+    type="password"
+    name="password"
+    id="password"
+    minlength="6"
+    required
+    ngModel>
+    <button class="btn" type="submit">{{ hasAccount ? 'Login' : 'Signup' }}</button>
+  </form>
+</div>
+
+<div class="login form-group" *ngIf="hasAccount">
+  <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+  <label for="email">Email: </label>
+  <input
+    #emailInput="ngModel"
+    type="email"
+    name="email"
+    id="email"
+    required
+    ngModel>
+  <label for="password">Password: </label>
+  <input
+    #passwordInput="ngModel"
+    type="password"
+    name="password"
+    id="password"
+    minlength="6"
+    required
+    ngModel>
+    <button class="btn" type="submit">{{ hasAccount ? 'Login' : 'Signup' }}</button>
+  </form>
+</div>
+
+
+<button class="btn" (click)="onSwitchAuthMode()">Switch to {{ hasAccount ? 'Login' : 'Signup' }}</button>
+
+
