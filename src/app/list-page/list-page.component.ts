@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Media } from './media.model';
-import { StreamInfo } from './streamInfo.model';
+
 import { ListService, TitleDetailsResponseData } from '../shared/list.service';
 import { Subscription } from 'rxjs';
-import { TitleDetails } from './titleDetails.model';
+
 
 @Component({
   selector: 'app-list-page',
