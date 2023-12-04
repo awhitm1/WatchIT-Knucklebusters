@@ -9,7 +9,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ListPageComponent } from './list-page/list-page.component';
-
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [],
