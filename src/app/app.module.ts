@@ -12,7 +12,6 @@ import { ListPageComponent } from './list-page/list-page.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @NgModule({
   declarations: [
     AppComponent,
