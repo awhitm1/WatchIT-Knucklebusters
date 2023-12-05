@@ -20,6 +20,8 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  private hasAccountSource = new BehaviorSubject<boolean>(false);
+  currentHasAccount = this.hasAccountSource.asObservable();
 
   signUp(email: string, password: string) {
     return this.http.post<AuthResponseData>(SIGN_UP_URL + AUTH_API_KEY, {
@@ -52,5 +54,9 @@ export class AuthService {
     const formUser = new User(email, token, expDate, userId,);
     this.currentUser.next(formUser);
     localStorage.setItem("userData", JSON.stringify(formUser));
+  }
+
+  changeHasAccount(hasAccount: boolean) {
+    this.hasAccountSource.next(hasAccount);
   }
 }
