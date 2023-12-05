@@ -4,50 +4,23 @@ import { StreamInfo } from '../list-page/streamInfo.model';
 import { Subject } from 'rxjs';
 import { Price } from '../list-page/price.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { TitleDetails } from '../list-page/titleDetails.model';
+
 
 
 export interface TitleDetailsResponseData {
-  adult: boolean,
   backdrop_path: string,
-  belongs_to_collection: {
-    id: number,
-    name: string,
-    poster_path: string,
-    backdrop_path: string},
-  budget: number,
-  genre: [{
-    id: number,
-    name: string}],
+  genres: [{
+      name: string}],
   homepage: string,
   id: number,
-  imdb_id: string,
-  original_language: string,
-  original_tital: string,
   overview: string,
-  popularity: number,
   poster_path: string,
-  production_companies: [{
-    id: number,
-    logo_path: string,
-    name: string,
-    origin_country: string}],
-  production_countries: [{
-    iso_3166_1: string,
-    name: string}],
   release_date: string,
-  revenue: number,
   runtime: number,
-  spoken_languages: [{
-    english_name: string,
-    iso_639_1: string,
-    name: string}],
-  status: string,
   tagline: string,
   title: string,
-  video: boolean,
   vote_average: number,
-  vote_count: number
+
 }
 
 @Injectable({
@@ -56,7 +29,7 @@ export interface TitleDetailsResponseData {
 export class ListService implements OnInit {
   listObs = new Subject<Media[]>;
   detailsObs = new Subject<TitleDetailsResponseData>;
-  selectedDetails: TitleDetailsResponseData;
+  selectedDetails: TitleDetailsResponseData = {backdrop_path: '', genres: [{name:''}], homepage: '', id: null, overview: '', poster_path: '', release_date: '', runtime: null, tagline: '', title: '', vote_average: null};
 
   myList: Media[] = [
     new Media ('The Batman', 2022, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/dfa50804-e6f6-4fa2-a732-693dbc50527b', 'uhd'), 'tt1877830', 414906, 'movie', 'watching' ),
@@ -107,7 +80,18 @@ export class ListService implements OnInit {
     }
 
     return this.http.get<TitleDetailsResponseData>(tmdbRootUrl + tmdbId + '?language=en-US', requestOptions).subscribe(res => {
-      this.selectedDetails = res;
+      console.log(res);
+      this.selectedDetails.backdrop_path = res.backdrop_path;
+      this.selectedDetails.genres = res.genres;
+      this.selectedDetails.homepage = res.homepage;
+      this.selectedDetails.id = res.id;
+      this.selectedDetails.overview = res.overview;
+      this.selectedDetails.release_date = res.release_date;
+      this.selectedDetails.runtime = res.runtime;
+      this.selectedDetails.poster_path = res.poster_path;
+      this.selectedDetails.tagline = res.tagline;
+      this.selectedDetails.title = res.title;
+      this.selectedDetails.vote_average = res.vote_average;
       console.log('fetched Details: ', this.selectedDetails);
       this.detailsObs.next(this.selectedDetails)
     } )
