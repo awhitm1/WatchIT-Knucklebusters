@@ -1,6 +1,7 @@
-import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ListService, TitleDetailsResponseData } from 'src/app/shared/list.service';
+
 
 @Component({
   selector: 'app-item-details',
@@ -12,7 +13,7 @@ export class ItemDetailsComponent implements OnInit {
 
   tmdb_img_baseURL = 'https://image.tmdb.org/t/p/original';
 
-  constructor(public listsvc: ListService, public dialogRef: DialogRef<string>, @Inject(DIALOG_DATA) public data: TitleDetailsResponseData){}
+  constructor(public listsvc: ListService, public dialogRef: MatDialogRef<ItemDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: TitleDetailsResponseData){}
 
   ngOnInit(): void {
       this.selectedItem.backdrop_path = this.data.backdrop_path;
@@ -26,5 +27,14 @@ export class ItemDetailsComponent implements OnInit {
       this.selectedItem.tagline = this.data.tagline;
       this.selectedItem.title = this.data.title;
       this.selectedItem.vote_average = this.data.vote_average;
+      this.selectedItem.watchURL = this.data.watchURL;
   }
+
+  onClose(): void {
+    this.dialogRef.close();
+    console.log("Close was clicked!");
+
+  }
+
+
 }
