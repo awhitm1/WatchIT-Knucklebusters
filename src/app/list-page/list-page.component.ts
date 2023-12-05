@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Media } from './media.model';
-import { StreamInfo } from './streamInfo.model';
+
 import { ListService, TitleDetailsResponseData } from '../shared/list.service';
 import { Subscription } from 'rxjs';
-import { TitleDetails } from './titleDetails.model';
+import { Dialog } from '@angular/cdk/dialog';
+import { ItemDetailsComponent } from './item-details/item-details.component';
+
 
 @Component({
   selector: 'app-list-page',
@@ -16,7 +18,7 @@ export class ListPageComponent implements OnInit, OnDestroy{
   myMedia: Media[];
   titleDetails: TitleDetailsResponseData;
 
-  constructor(private listsvc: ListService){}
+  constructor(private listsvc: ListService, public dialog: Dialog){}
 
   ngOnInit(): void {
     this.myMedia = this.listsvc.getMyList();
@@ -27,7 +29,8 @@ export class ListPageComponent implements OnInit, OnDestroy{
 
     this.detailsSub = this.listsvc.detailsObs.subscribe(obs => {
       this.titleDetails = obs;
-      console.log("titleDetails: ", this.titleDetails)
+      console.log("titleDetails: ", this.titleDetails);
+      this.openDialog();
     })
 
     console.log("myMedia: ", this.myMedia)
@@ -46,5 +49,16 @@ export class ListPageComponent implements OnInit, OnDestroy{
   getInfo(id: number){
     this.listsvc.getDetails(id);
 
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open<string>(ItemDetailsComponent, {
+      data: this.titleDetails,
+    });
+
+    dialogRef.closed.subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
   }
 }
