@@ -29,11 +29,8 @@ import { ItemDetailsComponent } from './list-page/item-details/item-details.comp
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    DialogModule,
-
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
