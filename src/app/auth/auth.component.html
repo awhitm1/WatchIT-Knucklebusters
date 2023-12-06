@@ -1,32 +1,35 @@
-<div class="signup form-group" *ngIf="!hasAccount">
+<div class="signup form-group flex-container d-flex justify-content-center" *ngIf="!hasAccount">
   <form
   (ngSubmit)="onSubmit(signupForm)"
   #signupForm="ngForm">
-  <label for="firstName">First Name: </label>
+  <label for="firstName" class="form-control">First Name: </label>
   <input
     #firstNameInput="ngModel"
     type="text"
     name="firstName"
     id="firstName"
     required
-    ngModel>
-  <label for="lastName">Last Name: </label>
+    ngModel
+    class="form-control">
+  <label for="lastName" class="form-control">Last Name: </label>
   <input
     #lastNameInput="ngModel"
     type="text"
     name="lastName"
     id="lastName"
     required
-    ngModel>
-  <label for="email">Email: </label>
+    ngModel
+    class="form-control">
+  <label for="email" class="form-control">Email: </label>
   <input
     #emailInput="ngModel"
     type="email"
     name="email"
     id="email"
     required
-    ngModel>
-  <label for="password">Password: </label>
+    ngModel
+    class="form-control">
+  <label for="password" class="form-control">Password: </label>
   <input
     #passwordInput="ngModel"
     type="password"
@@ -34,22 +37,24 @@
     id="password"
     minlength="6"
     required
-    ngModel>
+    ngModel
+    class="form-control">
     <button class="btn" type="submit">{{ hasAccount ? 'Login' : 'Signup' }}</button>
   </form>
 </div>
 
 <div class="login form-group" *ngIf="hasAccount">
   <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
-  <label for="email">Email: </label>
+  <label for="email" class="form-control">Email: </label>
   <input
     #emailInput="ngModel"
     type="email"
     name="email"
     id="email"
     required
-    ngModel>
-  <label for="password">Password: </label>
+    ngModel
+    class="form-control">
+  <label for="password" class="form-control">Password: </label>
   <input
     #passwordInput="ngModel"
     type="password"
@@ -57,12 +62,13 @@
     id="password"
     minlength="6"
     required
-    ngModel>
+    ngModel
+    class="form-control">
     <button class="btn" type="submit">{{ hasAccount ? 'Login' : 'Signup' }}</button>
   </form>
 </div>
 
 
-<button class="btn" (click)="onSwitchAuthMode()">Switch to {{ hasAccount ? 'Login' : 'Signup' }}</button>
+<button class="btn" (click)="onSwitchAuthMode()">Switch to {{ hasAccount ? 'Signup' : 'Login' }}</button>
 
 

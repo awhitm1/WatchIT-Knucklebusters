@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export interface AuthResponseData {
   styleUrls: ['./auth.component.css']
 })
 
-export class AuthComponent {
+export class AuthComponent implements OnInit{
 
   signupForm: FormGroup;
   loginForm: FormGroup;
@@ -27,9 +27,17 @@ export class AuthComponent {
 
   hasAccount: boolean = false;
 
-  authObsrv: Observable<AuthResponseData>
+  authObsrv: Observable<AuthResponseData>;
 
   constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.authService.currentHasAccount.subscribe({
+      next: (hasAccount) => {
+        this.hasAccount = hasAccount;
+      }
+    })
+  }
 
   onSwitchAuthMode() {
     this.hasAccount = !this.hasAccount;
