@@ -30,6 +30,8 @@ export class ListService implements OnInit {
   listObs = new Subject<Media[]>;
   detailsObs = new Subject<TitleDetailsResponseData>;
   selectedDetails: TitleDetailsResponseData = {backdrop_path: '', genres: [{name:''}], homepage: '', id: null, overview: '', poster_path: '', release_date: '', runtime: null, tagline: '', title: '', vote_average: null};
+  popList: TitleDetailsResponseData[];
+  popListObs = new Subject<TitleDetailsResponseData[]>;
 
   myList: Media[] = [
     new Media ('The Batman', 2022, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/dfa50804-e6f6-4fa2-a732-693dbc50527b', 'uhd'), 'tt1877830', 414906, 'movie', 'Watching!' ),
@@ -126,4 +128,26 @@ export class ListService implements OnInit {
     // next out the updated list to anyone listening
     this.listObs.next(this.myList)
   }
+
+  // Get List of Popular Media from TMDB
+  getPopular(){
+    const tmdbRootUrl = 'https://api.themoviedb.org/3/movie/';
+    const authToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYTQyNGJlNWNiNGNjMTNmM2JlNzU3MWFkZWQ4NjA3ZiIsInN1YiI6IjY1Njk0Yjc2NjM1MzZhMDBlMTIwMTM1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-xsK5e95GPN9u1prRaUKxtymlpm2SxwRm9xMxCyEiqo';
+
+    const headerDict = {
+      'accept': 'application/json',
+      'Authorization': authToken
+    }
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    }
+
+    return this.http.get<any>(tmdbRootUrl + 'popular?language=en-US', requestOptions).subscribe(res => {
+      this.popList = res.results;
+      this.popListObs.next(this.popList)
+    });
+  }
+
+
 }

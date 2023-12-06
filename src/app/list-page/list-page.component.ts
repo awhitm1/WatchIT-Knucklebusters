@@ -8,7 +8,8 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import {MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import { NgForm } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-list-page',
@@ -21,7 +22,12 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   myMedia: Media[];
   titleDetails: TitleDetailsResponseData;
   displayedColumns: string[] = ['index','title', 'year', 'status', 'type', 'service', 'Actions', 'cost'];
+  displayedColumnsPop: string[] = ['index', 'image', 'title', 'year']
   dataSource: MatTableDataSource<Media>;
+  dataSourcePop: MatTableDataSource<TitleDetailsResponseData>;
+  popularList: TitleDetailsResponseData[];
+  popularListSub: Subscription;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -43,8 +49,15 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
 
     this.detailsSub = this.listsvc.detailsObs.subscribe(obs => {
       this.titleDetails = obs;
-      console.log("titleDetails: ", this.titleDetails);
       this.openDialog();
+    })
+
+    this.popularListSub = this.listsvc.popListObs.subscribe(pop => {
+      this.popularList = pop;
+      this.dataSourcePop = new MatTableDataSource(this.popularList);
+      this.dataSourcePop.paginator = this.paginator;
+      this.dataSourcePop.sort = this.sort;
+
     })
 
     console.log("myMedia: ", this.myMedia)
@@ -54,11 +67,13 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
   }
 
   ngOnDestroy(): void {
     this.listSub.unsubscribe();
     this.detailsSub.unsubscribe();
+    this.popularListSub.unsubscribe();
   }
   //Part of Mat Table
   applyFilter(event: Event) {
@@ -95,5 +110,9 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   onChangeStatus(){
     this.listsvc.updateList(this.myMedia.slice());
     console.log(this.myMedia)
+  }
+
+  getPops(){
+    this.listsvc.getPopular()
   }
 }
