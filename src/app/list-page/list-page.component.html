@@ -73,7 +73,7 @@
                   <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
                 </svg>
             </a>
-            <a style="margin:5px" (click)="delMedia(row.imdbId)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <a style="margin:5px" (click)="delMedia(row.tmdbId)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
               <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
               <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
               </svg>
@@ -104,93 +104,7 @@
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of Tasks"></mat-paginator>
   </div>
-
-
-
-
-
-
 </div>
-<!-- <div class="table-responsive">
-  <table class="table table-light table-striped table-hover caption-top">
-    <caption>
-      <button class="btn btn-success m-2">Search</button>
 
-      <div class="btn-group m-2" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-        <label class="btn btn-outline-primary" for="btnradio1">Watching!</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio2">Want to Watch!</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio3">Watched!</label>
-      </div>
-
-      <div class="btn-group m-2" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off" checked>
-        <label class="btn btn-outline-primary" for="btnradio4">Movies</label>
-
-        <input type="radio" class="btn-check" name="btnradio2" id="btnradio5" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio5">Series</label>
-      </div>
-
-    </caption>
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Year</th>
-      <th scope="col">Status</th>
-      <th scope="col">Type</th>
-      <th scope="col">Service</th>
-      <th scope="col">Actions</th>
-      <th scope="col">Cost</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let item of myMedia, index as i">
-      <th scope="row">{{i+1}}</th>
-      <td>{{item.title}}</td>
-      <td>{{item.year}}</td>
-      <td><form>
-        <div class="form-group dropBoxStyle">
-
-          <select [(ngModel)]="item.status" name="media-status" (change)="onChangeStatus()">
-            <option value="Watching!">Watching!</option>
-            <option value="Want to Watch!">Want to Watch!</option>
-            <option value="Watched!">Watched!</option>
-          </select>
-        </div>
-      </form></td>
-
-      <td>{{item.type}}</td>
-      <td><img src="https://media.movieofthenight.com/services/{{item.service.service}}/logo-light-theme.svg" width="50" alt="{{item.service.service}}"/></td>
-      <td>
-        <a href={{item.service.linkUrl}} style="cursor:pointer; margin:5px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-btn" viewBox="0 0 16 16">
-          <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>
-          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
-        </svg></a>
-        <a style="cursor:pointer; margin:5px;"  (click)="getInfo(this.item.tmdbId)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-              <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-            </svg>
-        </a>
-        <a style="margin:5px" (click)="delMedia(item.imdbId)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-          </svg>
-        </a>
-      </td>
-      <td *ngIf="!!item.service.price; else subFree">${{item.service.price.amount}}</td>
-      <ng-template #subFree><td>
-        <span class="badge rounded-pill bg-secondary">sub</span>
-      </td></ng-template>
-    </tr>
-  </tbody>
-</table>
-</div> -->
 
 

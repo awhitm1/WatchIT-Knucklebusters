@@ -16,6 +16,7 @@ export class ItemDetailsComponent implements OnInit {
   constructor(public listsvc: ListService, public dialogRef: MatDialogRef<ItemDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: TitleDetailsResponseData){}
 
   ngOnInit(): void {
+    // Brings in data from clicked list item
       this.selectedItem.backdrop_path = this.data.backdrop_path;
       this.selectedItem.genres = this.data.genres;
       this.selectedItem.homepage = this.data.homepage;
@@ -30,6 +31,7 @@ export class ItemDetailsComponent implements OnInit {
       this.selectedItem.watchURL = this.data.watchURL;
   }
 
+  // Close the Dialog
   onClose(): void {
     this.dialogRef.close();
     console.log("Close was clicked!");

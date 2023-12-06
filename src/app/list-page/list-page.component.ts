@@ -31,6 +31,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   ngOnInit(): void {
     this.myMedia = this.listsvc.getMyList();
 
+    // For Mat Table
     this.listSub = this.listsvc.listObs.subscribe((media: Media[]) => {
       this.myMedia = media;
       this.dataSource = new MatTableDataSource(this.myMedia);
@@ -59,7 +60,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
     this.listSub.unsubscribe();
     this.detailsSub.unsubscribe();
   }
-
+  //Part of Mat Table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -70,7 +71,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   }
 
 
-  delMedia(id: string){
+  delMedia(id: number){
     this.listsvc.delMedia(id)
   }
 
@@ -79,6 +80,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
 
   }
 
+  // Modal trigger
   openDialog(): void {
     const id = this.titleDetails.id;
     const idx = this.myMedia.findIndex(medias => medias.tmdbId === id);
@@ -88,10 +90,6 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
       data: this.titleDetails
     });
 
-  }
-
-  onClose(){
-    console.log('closed');
   }
 
   onChangeStatus(){

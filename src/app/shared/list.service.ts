@@ -43,23 +43,37 @@ export class ListService implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    console.log("service init: ", this.myList)
-      this.listObs.next(this.myList.slice());
+    // Need to call method to fetch from Firebase
+
+    console.log("service init: ", this.myList);
+
+    // Probably move this to the fetch from Firebase method
+    this.listObs.next(this.myList.slice());
   }
 
   addMedia(media: Media){
-    this.myList.push(media);
-    this.listObs.next(this.myList.slice());
+
+    // check if media status is set
+    if (!!media.status){
+      this.myList.push(media);
+      this.listObs.next(this.myList.slice());
+    } else {
+      media.status = 'Want to Watch!';
+      this.myList.push(media);
+      this.listObs.next(this.myList.slice());
+    }
+    // ** Need to Save myList to Firebase **
   }
 
-  getListIndexByImdbId(imdbId: string){
-    const itemIndex = this.myList.findIndex(items => items.imdbId === imdbId);
+  getListIndexByTmdbId(tmdbId: number){
+    const itemIndex = this.myList.findIndex(items => items.tmdbId === tmdbId);
     return itemIndex;
   }
 
-  delMedia(imdbId: string){
-    this.myList.splice(this.getListIndexByImdbId(imdbId),1);
+  delMedia(tmdbId: number){
+    this.myList.splice(this.getListIndexByTmdbId(tmdbId),1);
     this.listObs.next(this.myList.slice());
+    // ** Need to Save myList to Firebase **
   }
 
   getMyList(){
@@ -67,6 +81,9 @@ export class ListService implements OnInit {
   }
 
   getDetails(tmdbId: number){
+
+    // Building the TMDB API call
+
     const tmdbRootUrl = 'https://api.themoviedb.org/3/movie/';
     const authToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYTQyNGJlNWNiNGNjMTNmM2JlNzU3MWFkZWQ4NjA3ZiIsInN1YiI6IjY1Njk0Yjc2NjM1MzZhMDBlMTIwMTM1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-xsK5e95GPN9u1prRaUKxtymlpm2SxwRm9xMxCyEiqo';
 
@@ -79,6 +96,7 @@ export class ListService implements OnInit {
       headers: new HttpHeaders(headerDict),
     }
 
+    // API Call to get the TMDB data that includes image paths
     return this.http.get<TitleDetailsResponseData>(tmdbRootUrl + tmdbId + '?language=en-US', requestOptions).subscribe(res => {
       console.log(res);
       this.selectedDetails.backdrop_path = res.backdrop_path;
@@ -93,12 +111,19 @@ export class ListService implements OnInit {
       this.selectedDetails.title = res.title;
       this.selectedDetails.vote_average = res.vote_average;
       console.log('fetched Details: ', this.selectedDetails);
+
+      // Next out the details of the selected item - notifies that there IS a selected item
       this.detailsObs.next(this.selectedDetails)
     } )
   }
 
+  // For when the list is modified (edit/update an item)
   updateList(newList: Media[]){
     this.myList = newList;
+
+    // Need code to send to firebase
+
+    // next out the updated list to anyone listening
     this.listObs.next(this.myList)
   }
 }
