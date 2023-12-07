@@ -23,7 +23,7 @@ export class AuthService {
   private hasAccountSource = new BehaviorSubject<boolean>(false);
   currentHasAccount = this.hasAccountSource.asObservable();
 
-  signUp(email: string, password: string) {
+  signUp(email: string, password: string, firstName: string, lastName: string) {
     return this.http.post<AuthResponseData>(SIGN_UP_URL + AUTH_API_KEY, {
       email,
       password,
@@ -31,12 +31,12 @@ export class AuthService {
     }).pipe(
       tap(res => {
         const { email, localId, idToken, expiresIn } = res;
-        this.handleAuth(email, localId, idToken, +expiresIn)
+        this.handleAuth(email, localId, idToken, +expiresIn, firstName, lastName)
       })
     )
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string, firstName: string, lastName: string) {
     return this.http.post<AuthResponseData>(SIGN_IN_URL + AUTH_API_KEY, {
       email,
       password,
@@ -44,14 +44,14 @@ export class AuthService {
     }).pipe(
       tap(res => {
         const { email, localId, idToken, expiresIn } = res;
-        this.handleAuth(email, localId, idToken, +expiresIn)
+        this.handleAuth(email, localId, idToken, +expiresIn, firstName, lastName)
       })
     )
   }
 
-  handleAuth(email: string, userId: string, token: string, expiresIn: number) {
+  handleAuth(email: string, userId: string, token: string, expiresIn: number, firstName: string, lastName: string) {
     const expDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const formUser = new User(email, token, expDate, userId,);
+    const formUser = new User(email, token, expDate, userId, firstName, lastName);
     this.currentUser.next(formUser);
     localStorage.setItem("userData", JSON.stringify(formUser));
   }
