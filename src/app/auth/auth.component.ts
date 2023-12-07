@@ -48,9 +48,9 @@ export class AuthComponent implements OnInit{
     const {firstName, lastName, email, password} = form.value;
 
     if(this.hasAccount) {
-      this.authObsrv = this.authService.login(email, password);
+      this.authObsrv = this.authService.login(email, password, firstName, lastName);
     } else {
-      this.authObsrv = this.authService.signUp(email, password);
+      this.authObsrv = this.authService.signUp(email, password, firstName, lastName);
     }
 
     this.authObsrv.subscribe({
