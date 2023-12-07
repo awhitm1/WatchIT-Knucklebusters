@@ -1,0 +1,14 @@
+<h3>{{ data.title || data.name }}</h3>
+<p>{{ data.release_date | date: "yyyy" }}</p>
+<p>Which list would you like to add this title to?</p>
+<select name="watchStatus" id="watchStatus">
+  <option value="Watching!">Watching!</option>
+  <option value="Want to Watch!">Want to Watch!</option>
+  <option value="Watched!">Watched!</option>
+</select>
+<p>Where would you like to watch this title at?</p>
+<div class="options">
+  <button class="btn btn-success">Location</button>
+</div>
+<button class="btn" (click)="onCancel()">Close</button>
+

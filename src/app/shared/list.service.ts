@@ -20,7 +20,9 @@ export interface TitleDetailsResponseData {
   tagline: string,
   title: string,
   vote_average: number,
-  watchURL?: string
+  watchURL?: string,
+  name?: string,
+  media_type?: string,
 }
 
 @Injectable({
