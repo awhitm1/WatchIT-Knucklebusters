@@ -12,8 +12,15 @@ import { ListPageComponent } from './list-page/list-page.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DialogModule } from '@angular/cdk/dialog';
-import { ItemDetailsComponent } from './list-page/item-details/item-details.component'
+import { MatDialogModule } from '@angular/material/dialog';
+import { ItemDetailsComponent } from './list-page/item-details/item-details.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { SearchDetailsComponent } from './search-results/search-details/search-details.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -25,12 +32,23 @@ import { ItemDetailsComponent } from './list-page/item-details/item-details.comp
     NavbarComponent,
     ListPageComponent,
     ItemDetailsComponent,
+    SearchDetailsComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatButtonToggleModule
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]
