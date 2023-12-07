@@ -5,10 +5,10 @@
     </div> -->
 
     <div class="d-flex p-2 bd-highlight flex-grow-1 item2">
-      <div class="d-flex flex-row">
+      <div class="d-flex flex-row flex-grow-1">
         <mat-form-field class="d-flex flex-grow-1">
         <!-- <mat-label>Search</mat-label> -->
-          <input matInput (keyup)="applyFilter($event)" placeholder="Search Title, Status, Service, etc." #input>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Search in Title, Year, or Status" #input>
         </mat-form-field>
       </div>
     </div>
