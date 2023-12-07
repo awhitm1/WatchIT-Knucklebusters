@@ -25,7 +25,7 @@ export class AuthComponent implements OnInit{
   loginForm: FormGroup;
   errMsg: string = null;
 
-  hasAccount: boolean = false;
+  hasAccount: boolean = true;
 
   authObsrv: Observable<AuthResponseData>;
 
@@ -34,7 +34,7 @@ export class AuthComponent implements OnInit{
   ngOnInit(): void {
     this.authService.currentHasAccount.subscribe({
       next: (hasAccount) => {
-        this.hasAccount = hasAccount;
+        // this.hasAccount = hasAccount;
       }
     })
   }

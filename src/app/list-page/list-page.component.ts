@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { Media } from './media.model';
 
 import { ListService, TitleDetailsResponseData } from '../shared/list.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import {MatTableDataSource } from '@angular/material/table';
@@ -17,6 +17,8 @@ import {MatSort} from '@angular/material/sort';
   styleUrls: ['./list-page.component.css']
 })
 export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
+  statusFilter: string;
+  filterObs = new Subject<Media[]>;
   listSub: Subscription;
   detailsSub: Subscription;
   myMedia: Media[];
@@ -36,7 +38,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
 
   ngOnInit(): void {
     this.myMedia = this.listsvc.getMyList();
-
+    this.statusFilter = 'All';
     // For Mat Table
     this.listSub = this.listsvc.listObs.subscribe((media: Media[]) => {
       this.myMedia = media;
@@ -107,12 +109,30 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
 
   }
 
+  onChangeFilter(){
+    if (this.statusFilter === 'All'){
+      this.dataSource = new MatTableDataSource(this.myMedia);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    } else{
+      const filtered = this.myMedia.filter((media) => media.status === this.statusFilter);
+      this.dataSource = new MatTableDataSource(filtered);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
+
+  }
+
   onChangeStatus(){
     this.listsvc.updateList(this.myMedia.slice());
     console.log(this.myMedia)
   }
 
-  getPops(){
-    this.listsvc.getPopular()
-  }
+  // getPops(){
+  //   this.listsvc.getPopular()
+  // }
+
+  // fetchStreamInfo(id: number){
+  //   this.listsvc.fetchFromMovieTonight(id)
+  // }
 }
