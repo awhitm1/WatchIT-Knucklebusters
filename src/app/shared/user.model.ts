@@ -14,4 +14,12 @@ export class User {
 
     return this._token
   }
+
+  public set token(token: string) {
+    this._token = token;
+  }
+
+  public set tokenExpirationDate(expDate: Date) {
+    this._tokenExpirationDate = expDate;
+  }
 }
