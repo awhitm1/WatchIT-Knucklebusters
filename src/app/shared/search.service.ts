@@ -15,6 +15,7 @@ export class SearchService {
   searchDetails = new Subject<Media>();
   media: Media;
 
+
   constructor(private http: HttpClient) { }
 
   searchMedia(searchTerm: string) {

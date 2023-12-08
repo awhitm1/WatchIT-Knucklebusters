@@ -1,9 +1,11 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Media } from '../list-page/media.model';
 import { StreamInfo } from '../list-page/streamInfo.model';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Price } from '../list-page/price.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { AuthService } from '../auth/auth.service';
+import { User } from './user.model';
 
 
 
@@ -20,18 +22,27 @@ export interface TitleDetailsResponseData {
   tagline: string,
   title: string,
   vote_average: number,
-  watchURL?: string
+  watchURL?: string,
+  name?: string,
+  media_type?: string,
+}
+
+export interface AppData {
+  user: User,
+  mediaList: Media[]
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListService implements OnInit {
+export class ListService implements OnInit, OnDestroy {
   listObs = new Subject<Media[]>;
   detailsObs = new Subject<TitleDetailsResponseData>;
   selectedDetails: TitleDetailsResponseData = {backdrop_path: '', genres: [{name:''}], homepage: '', id: null, overview: '', poster_path: '', release_date: '', runtime: null, tagline: '', title: '', vote_average: null};
   popList: TitleDetailsResponseData[];
   popListObs = new Subject<TitleDetailsResponseData[]>;
+  currentUserSub: Subscription;
+  currentUser: User;
 
   myList: Media[] = [
     new Media ('The Batman', 2022, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/dfa50804-e6f6-4fa2-a732-693dbc50527b', 'uhd'), 'tt1877830', 414906, 'movie', 'Watching!' ),
@@ -42,9 +53,14 @@ export class ListService implements OnInit {
   ];
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public auth: AuthService) { }
 
   ngOnInit(): void {
+    this.currentUserSub = this.auth.currentUser.subscribe((user: User) => {
+      this.currentUser = user;
+      console.log("Current User: ", this.currentUser)
+    });
+
     // Need to call method to fetch from Firebase
 
     console.log("service init: ", this.myList);
@@ -53,6 +69,9 @@ export class ListService implements OnInit {
     this.listObs.next(this.myList.slice());
   }
 
+  ngOnDestroy(): void {
+      this.currentUserSub.unsubscribe();
+  }
   addMedia(media: Media){
 
     // check if media status is set
@@ -130,24 +149,39 @@ export class ListService implements OnInit {
   }
 
   // Get List of Popular Media from TMDB
-  getPopular(){
-    const tmdbRootUrl = 'https://api.themoviedb.org/3/movie/';
-    const authToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYTQyNGJlNWNiNGNjMTNmM2JlNzU3MWFkZWQ4NjA3ZiIsInN1YiI6IjY1Njk0Yjc2NjM1MzZhMDBlMTIwMTM1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-xsK5e95GPN9u1prRaUKxtymlpm2SxwRm9xMxCyEiqo';
+  // getPopular(){
+  //   const tmdbRootUrl = 'https://api.themoviedb.org/3/movie/';
+  //   const authToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYTQyNGJlNWNiNGNjMTNmM2JlNzU3MWFkZWQ4NjA3ZiIsInN1YiI6IjY1Njk0Yjc2NjM1MzZhMDBlMTIwMTM1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-xsK5e95GPN9u1prRaUKxtymlpm2SxwRm9xMxCyEiqo';
 
-    const headerDict = {
-      'accept': 'application/json',
-      'Authorization': authToken
-    }
+  //   const headerDict = {
+  //     'accept': 'application/json',
+  //     'Authorization': authToken
+  //   }
 
-    const requestOptions = {
-      headers: new HttpHeaders(headerDict),
-    }
+  //   const requestOptions = {
+  //     headers: new HttpHeaders(headerDict),
+  //   }
 
-    return this.http.get<any>(tmdbRootUrl + 'popular?language=en-US', requestOptions).subscribe(res => {
-      this.popList = res.results;
-      this.popListObs.next(this.popList)
-    });
-  }
+  //   return this.http.get<any>(tmdbRootUrl + 'popular?language=en-US', requestOptions).subscribe(res => {
+  //     this.popList = res.results;
+  //     this.popListObs.next(this.popList)
+  //   });
+  // }
 
+  // fetchFromMovieTonight(id: number) {
+  //   const movieTonightBaseURL = 'https://streaming-availability.p.rapidapi.com/get?output_language=en&tmdb_id=';
 
+  //   const headerDict = {
+  //     'X-RapidAPI-Key': '8719718adfmsh9353da1b46c546bp15d82bjsn414bc0a1edf0',
+	// 	  'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
+  //   }
+
+  //   const requestOptions = {
+  //     headers: new HttpHeaders(headerDict),
+  //   }
+
+  //   return this.http.get<Media>(movieTonightBaseURL + "movie/" + id, requestOptions).subscribe(res => {
+  //     console.log(res)
+  //   })
+  // }
 }

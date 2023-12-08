@@ -1,0 +1,20 @@
+.dropBoxStyle select {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 30px 30px 30px 30px;
+  box-shadow: 0 0 10px #E8E8E8 inset;
+  height: 20px;
+  margin: 0 0 0 0px;
+  padding: 0px;
+  width: 120px;
+}
+
+.statusWant {
+  background-color: rgb(255, 249, 169);
+}
+.statusWatching {
+  background-color: #c8deff;
+}
+.statusWatched {
+  background-color: #d8d8d8;
+}
