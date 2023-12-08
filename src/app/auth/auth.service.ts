@@ -39,7 +39,6 @@ export class AuthService {
       tap(res => {
         const { email, localId, idToken, expiresIn } = res;
         this.initializeFB(firstName, lastName, email, localId, idToken, +expiresIn);
-        this.handleAuth(email, localId, idToken, +expiresIn, firstName, lastName)
       })
     )
   }
@@ -51,17 +50,19 @@ export class AuthService {
       returnSecureToken: true
     }).pipe(
       tap(res => {
-        const { email, localId, idToken, expiresIn } = res;
-        this.handleAuth(email, localId, idToken, +expiresIn, firstName, lastName)
+        const authResponse = res
+        this.fetchUser(authResponse)
       })
     )
   }
 
-  handleAuth(email: string, userId: string, token: string, expiresIn: number, firstName: string, lastName: string) {
-    const expDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const formUser = new User(email, token, expDate, userId, firstName, lastName);
-    this.currentUser.next(formUser);
-    localStorage.setItem("userData", JSON.stringify(formUser));
+  fetchUser(authResponse: AuthResponseData) {
+    this.http.get<UserData>(this.firebaseURL + authResponse.localId + '.json').subscribe(res => {
+      const { email, firstName, lastName } = res.user;
+      const user = new User(email, authResponse.idToken, new Date(authResponse.expiresIn), authResponse.localId, firstName, lastName);
+      this.currentUser.next(user);
+      localStorage.setItem("userData", JSON.stringify(user));
+    })
   }
 
   changeHasAccount(hasAccount: boolean) {
