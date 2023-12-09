@@ -1,14 +1,33 @@
-<h3>{{ data.title || data.name }}</h3>
-<p>{{ data.release_date | date: "yyyy" }}</p>
-<p>Which list would you like to add this title to?</p>
-<select name="watchStatus" id="watchStatus">
-  <option value="Watching!">Watching!</option>
-  <option value="Want to Watch!">Want to Watch!</option>
-  <option value="Watched!">Watched!</option>
-</select>
-<p>Where would you like to watch this title at?</p>
-<div class="options">
-  <button class="btn btn-success">Location</button>
-</div>
+<h1>Where would you like to watch this title at?</h1>
+<p>{{ mediaData.title}}</p>
+<!-- list -->
+<form class="main" (ngSubmit)="addMedia(addForm)" #addForm="ngForm">
+  <div *ngFor="let info of mediaData.service; let i = index">
+    <input
+      type="radio"
+      id="stream{{i}}"
+      name="stream"
+      value="{{info.service[i]}}"
+      [(ngModel)]="selectedStreamingType"
+      class="me-2">
+    <img src="https://media.movieofthenight.com/services/{{info.service}}/logo-light-theme.svg" width="50" alt="{{info.service}}"/>
+    <label for="streamType">{{ info.streamingType | titlecase}}</label>
+  </div>
+  <div class="footer-options">
+    <select
+      name="status"
+      id="status"
+      ngModel>
+      <option value="Watching!">Watching!</option>
+      <option value="Want to Watch!">Want to Watch!</option>
+      <option value="Watched!">Watched!</option>
+    </select>
+    <div class="options">
+      <button class="btn btn-success" type="submit">Add</button>
+    </div>
+  </div>
+</form>
+
+
 <button class="btn" (click)="onCancel()">Close</button>
 

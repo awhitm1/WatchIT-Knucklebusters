@@ -14,6 +14,7 @@ export class SearchService {
   url = `https://api.themoviedb.org/3/search/multi?query=`;
   searchDetails = new Subject<Media>();
   media: Media;
+  searchTerm: string = 'harry potter';
 
 
   constructor(private http: HttpClient) { }
@@ -30,8 +31,8 @@ export class SearchService {
       headers: new HttpHeaders(headerDict),
     }
     return this.http.get<any>(this.url + searchTerm + '&include_adult=false' + '&language=en-US', requestOptions).subscribe(res => {
-      console.log(res);
       this.searchResults = res.results;
+      this.searchTerm = searchTerm;
       this.searchResultsObs.next(this.searchResults.slice());
     } )
   }
@@ -54,7 +55,6 @@ export class SearchService {
 
     return this.http.get<Media>(movieTonightBaseURL + mediaType + "/" + id, requestOptions).subscribe(res => {
       this.media = res;
-      console.log(this.media);
       this.searchDetails.next(this.media);
     })
   }
