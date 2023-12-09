@@ -14,6 +14,11 @@ const SIGN_IN_URL =
 const AUTH_API_KEY = 'AIzaSyB3dC7CPHd-IrfIM7ijbMxIvLEpM-PMCiE';
 
 
+export interface UserData {
+  user: User,
+  list: Media[]
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -51,12 +56,16 @@ export class AuthService {
     )
   }
 
-  handleAuth(email: string, userId: string, token: string, expiresIn: number, firstName: string, lastName: string) {
-    const expDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const formUser = new User(email, token, expDate, userId, firstName, lastName);
-    this.currentUser.next(formUser);
-    localStorage.setItem("userData", JSON.stringify(formUser));
+  fetchUser(authResponse: AuthResponseData) {
+    this.http.get<UserData>(this.firebaseURL + authResponse.localId + '.json').subscribe(res => {
+      const { email, firstName, lastName } = res.user;
+      const user = new User(email, authResponse.idToken, new Date(authResponse.expiresIn), authResponse.localId, firstName, lastName);
+      this.currentUser.next(user);
+      localStorage.setItem("userData", JSON.stringify(user));
+    })
   }
+
+
 
   changeHasAccount(hasAccount: boolean) {
     this.hasAccountSource.next(hasAccount);
