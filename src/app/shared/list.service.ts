@@ -56,8 +56,7 @@ export class ListService implements OnInit, OnDestroy {
   constructor(private http: HttpClient, public auth: AuthService) { }
 
   ngOnInit(): void {
-    this.loggedInUser = this.auth.currentUser.value;
-    console.log("from list svc: ", this.loggedInUser);
+
 
     // Need to call method to fetch from Firebase
 

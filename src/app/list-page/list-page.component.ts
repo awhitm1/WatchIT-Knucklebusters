@@ -8,6 +8,8 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import {MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import { AuthService } from '../auth/auth.service';
+import { User } from '../shared/user.model';
 
 
 
@@ -29,14 +31,16 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   dataSourcePop: MatTableDataSource<TitleDetailsResponseData>;
   popularList: TitleDetailsResponseData[];
   popularListSub: Subscription;
-
+  loggedInUser: User;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private listsvc: ListService, public dialog: MatDialog){}
+  constructor(private listsvc: ListService, public dialog: MatDialog, public auth: AuthService){}
 
   ngOnInit(): void {
+    this.loggedInUser = this.auth.currentUser.value;
+    console.log("from list svc: ", this.loggedInUser);
     this.myMedia = this.listsvc.getMyList();
     this.statusFilter = 'All';
     // For Mat Table
