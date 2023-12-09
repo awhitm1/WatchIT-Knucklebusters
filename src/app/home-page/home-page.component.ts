@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent {
+  userId: string;
+
+  constructor (private authService: AuthService) {}
+
+  ngOnInit() {
+    this.userId = localStorage.getItem('userId');
+  }
 
 }
