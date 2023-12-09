@@ -41,6 +41,7 @@ export class SearchResultsComponent implements OnInit{
         id: details.tmdbId,
         title: details.title,
         release_date: details.year,
+
       }
     });
   }

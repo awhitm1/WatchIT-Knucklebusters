@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Media } from '../list-page/media.model';
 import { StreamInfo } from '../list-page/streamInfo.model';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, take} from 'rxjs';
 import { Price } from '../list-page/price.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { AuthService } from '../auth/auth.service';
@@ -42,7 +42,7 @@ export class ListService implements OnInit, OnDestroy {
   popList: TitleDetailsResponseData[];
   popListObs = new Subject<TitleDetailsResponseData[]>;
   currentUserSub: Subscription;
-  currentUser: User;
+  loggedInUser: User;
 
   myList: Media[] = [
     new Media ('The Batman', 2022, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/dfa50804-e6f6-4fa2-a732-693dbc50527b', 'uhd'), 'tt1877830', 414906, 'movie', 'Watching!' ),
@@ -56,10 +56,8 @@ export class ListService implements OnInit, OnDestroy {
   constructor(private http: HttpClient, public auth: AuthService) { }
 
   ngOnInit(): void {
-    this.currentUserSub = this.auth.currentUser.subscribe((user: User) => {
-      this.currentUser = user;
-      console.log("Current User: ", this.currentUser)
-    });
+    this.loggedInUser = this.auth.currentUser.value;
+    console.log("from list svc: ", this.loggedInUser);
 
     // Need to call method to fetch from Firebase
 

@@ -41,7 +41,7 @@ export class SearchService {
   }
 
   fetchFromMovieTonight(id: number, mediaType: string) {
-    const movieTonightBaseURL = 'https://streaming-availability.p.rapidapi.com/get?output_language=en&tmdb_id=';
+    const movieTonightBaseURL = 'https://streaming-availability.p.rapidapi.com/get?output_language=en&country=us&tmdb_id=';
 
     const headerDict = {
       'X-RapidAPI-Key': '8719718adfmsh9353da1b46c546bp15d82bjsn414bc0a1edf0',
