@@ -17,7 +17,6 @@ const AUTH_API_KEY = 'AIzaSyB3dC7CPHd-IrfIM7ijbMxIvLEpM-PMCiE';
   providedIn: 'root'
 })
 export class AuthService {
-
   constructor(private http: HttpClient) { }
 
   currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
