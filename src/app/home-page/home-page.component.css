@@ -5,15 +5,15 @@
 
 .page {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   background-repeat: no-repeat;
-  background-size: 100vw 100vh;
+  background-size: 100vw 100%;
   background-image: url('https://cdn.pixabay.com/animation/2022/10/06/19/34/19-34-14-12_512.gif');
   /* background-attachment: fixed; */
 }
 
 .title {
-  width: 100vw;
+  width: 100%;
   background-color: rgb(48, 47, 47);
   color: rgb(127, 242, 255);
   margin-left: 0;
@@ -22,11 +22,11 @@
 .faq-body {
   font-family: sans-serif;
   text-align: center;
-  width: 100vw;
+  width: 100%;
   margin-left: 0;
   background-color: rgb(48, 47, 47);
-  position: absolute;
-  bottom: 0;
+  /* position: absolute;
+  bottom: 0; */
 }
 
 summary {
@@ -45,13 +45,9 @@ summary {
 }
 
 .card-container{
-  width: 200px;
-  height: 200px;
+  /* width: 200px;
+  height: 200px; */
   top: 200px;
   left: 100px;
   color: rgb(1, 237, 217);
-}
-
-.card img {
-
 }
