@@ -4,6 +4,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { User } from '../shared/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Media } from '../list-page/media.model';
+import { Router } from '@angular/router';
 
 const SIGN_UP_URL =
 `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=`;
@@ -22,7 +23,7 @@ export interface UserData {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   private hasAccountSource = new BehaviorSubject<boolean>(false);
@@ -75,5 +76,11 @@ export class AuthService {
       list: []
     }
     this.http.put(this.firebaseURL + currentUserData.user.id + '.json', currentUserData).subscribe();
+  }
+
+  logout() {
+    this.currentUser.next(null);
+    localStorage.removeItem("userData");
+    this.router.navigate(['/landing-page'])
   }
 }
