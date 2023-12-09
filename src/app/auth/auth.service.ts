@@ -3,6 +3,7 @@ import { AuthResponseData } from './auth.component';
 import { BehaviorSubject, tap } from 'rxjs';
 import { User } from '../shared/user.model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 const SIGN_UP_URL =
 `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=`;

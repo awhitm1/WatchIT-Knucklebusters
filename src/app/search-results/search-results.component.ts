@@ -17,26 +17,24 @@ export class SearchResultsComponent implements OnInit{
   searchDetailsSub: Subscription;
   searchResultsSub = this.searchService.searchResultsObs.subscribe(obs => {
     this.searchResults = obs;
-    console.log(this.searchResults);
   });
+  searchTerm: string;
 
   tmdb_img_baseURL = 'https://image.tmdb.org/t/p/original';
 
-  constructor(private listService: ListService, public dialog: MatDialog, private searchService: SearchService) { }
+  constructor(public dialog: MatDialog, private searchService: SearchService) { }
 
   ngOnInit(): void {
-    this.searchService.searchMedia('harry potter');
+    this.searchTerm = this.searchService.searchTerm;
+    this.searchService.searchMedia(this.searchTerm);
     this.searchDetailsSub = this.searchService.searchDetails.subscribe({
       next: (details: Media) => {
-        console.log(details, 'from sub');
         this.openModal(details)
       }
     })
   }
 
   openModal(details) {
-    console.log('open modal streaminfo', details.result.streamingInfo.us);
-
     const detailsInfo: Media = {
       title: details.result.title,
       year: details.result.year,
@@ -54,7 +52,5 @@ export class SearchResultsComponent implements OnInit{
 
   fetchFromMovieTonight(id: number, mediaType: string) {
     this.searchService.fetchFromMovieTonight(id, mediaType);
-    console.log('fetching from movie tonight', id, mediaType);
-
   }
 }

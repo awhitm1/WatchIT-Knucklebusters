@@ -23,9 +23,12 @@ export class SearchDetailsComponent implements OnInit{
     private listService: ListService,
     @Inject(MAT_DIALOG_DATA) public data) { }
 
-  ngOnInit(): void {
-    console.log('what I can access', this.data.detailsInfo);
-    this.mediaData = this.data.detailsInfo;
+    ngOnInit(): void {
+      this.mediaData = this.data.detailsInfo;
+      this.listService.listObs.subscribe((res) => {
+        console.log(res);
+        
+      });
 
   }
 
@@ -34,10 +37,6 @@ export class SearchDetailsComponent implements OnInit{
   }
 
   addMedia(form: NgForm) {
-    console.log('test media from add function', this.mediaData);
-    console.log(form.value.status);
-    
-
     const newMedia: Media = {
       title: this.mediaData.title,
       year: this.mediaData.year,
@@ -47,11 +46,6 @@ export class SearchDetailsComponent implements OnInit{
       type: this.mediaData.type,
       status: form.value.status
     }
-    console.log('new media', newMedia.status);
-    console.log('whole form', form.value);
-    console.log(newMedia);
-
-
     this.listService.addMedia(newMedia);
     this.dialogRef.close();
   }

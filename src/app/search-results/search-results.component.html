@@ -1,4 +1,5 @@
-<div class="d-flex flex-wrap m-0" style="width: 100vw;">
+<h1>Search Results for {{ searchTerm }}</h1>
+<div class="d-flex flex-wrap ms-1" style="width: 100vw;">
   <div class="inner-card" *ngFor="let result of searchResults; let i = index">
     <div class="clickable-image" *ngIf="!!result.title || !!result.name || results.media_type !='person'">
       <img src="{{tmdb_img_baseURL + this.result.poster_path}}" alt="{{ this.result.title }}" style="width: 250px;" (click)="fetchFromMovieTonight(result.id, result.media_type)">
