@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Media } from 'src/app/list-page/media.model';
 import { StreamInfo } from 'src/app/list-page/streamInfo.model';
@@ -15,6 +16,7 @@ export class SearchDetailsComponent implements OnInit{
   resultDetails: Media;
   streamingInfo: StreamInfo[] = [];
   selectedStreamingType: string;
+  mediaData: Media;
 
   constructor(
     public dialogRef: MatDialogRef<SearchDetailsComponent>,
@@ -22,18 +24,35 @@ export class SearchDetailsComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit(): void {
-    console.log('modal init data', this.data.detailsInfo);
-    console.log('this.data.title', this.data.detailsInfo.title);
-    console.log('this.data.streaminfo', this.data.detailsInfo.service);
+    console.log('what I can access', this.data.detailsInfo);
+    this.mediaData = this.data.detailsInfo;
+
   }
 
   onCancel() {
     this.dialogRef.close();
   }
 
-  addMedia(id: number) {
-    // const media: Media = new Media();
-    // this.listService.addMedia(media);
+  addMedia(form: NgForm) {
+    console.log('test media from add function', this.mediaData);
+    console.log(form.value.status);
+    
+
+    const newMedia: Media = {
+      title: this.mediaData.title,
+      year: this.mediaData.year,
+      service: this.mediaData.service,
+      imdbId: this.mediaData.imdbId,
+      tmdbId: this.mediaData.tmdbId,
+      type: this.mediaData.type,
+      status: form.value.status
+    }
+    console.log('new media', newMedia.status);
+    console.log('whole form', form.value);
+    console.log(newMedia);
+
+
+    this.listService.addMedia(newMedia);
     this.dialogRef.close();
   }
 
