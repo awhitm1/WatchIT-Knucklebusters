@@ -67,13 +67,6 @@ export class AuthService {
     })
   }
 
-  handleAuth(email: string, userId: string, token: string, expiresIn: number, firstName: string, lastName: string) {
-    const expDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const formUser = new User(email, token, expDate, userId, firstName, lastName);
-    this.currentUser.next(formUser);
-    localStorage.setItem("userData", JSON.stringify(formUser));
-  }
-
   changeHasAccount(hasAccount: boolean) {
     this.hasAccountSource.next(hasAccount);
   }
