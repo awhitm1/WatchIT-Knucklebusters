@@ -5,6 +5,7 @@ import { User } from '../shared/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Media } from '../list-page/media.model';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 const SIGN_UP_URL =
 `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=`;
