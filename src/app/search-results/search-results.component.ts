@@ -22,7 +22,6 @@ export class SearchResultsComponent implements OnInit{
 
   tmdb_img_baseURL = 'https://image.tmdb.org/t/p/original';
 
-
   constructor(private listService: ListService, public dialog: MatDialog, private searchService: SearchService) { }
 
   ngOnInit(): void {
@@ -35,12 +34,20 @@ export class SearchResultsComponent implements OnInit{
     })
   }
 
-  openModal(details: Media) {
+  openModal(details) {
+    console.log('open modal streaminfo', details.result.streamingInfo.us);
+
+    const detailsInfo: Media = {
+      title: details.result.title,
+      year: details.result.year,
+      service: details.result.streamingInfo.us,
+      imdbId: details.result.imdbId,
+      tmdbId: details.result.tmdbId,
+      type: details.result.type,
+    }
     const dialogRef = this.dialog.open(SearchDetailsComponent, {
       data: {
-        id: details.tmdbId,
-        title: details.title,
-        release_date: details.year,
+        detailsInfo
       }
     });
   }

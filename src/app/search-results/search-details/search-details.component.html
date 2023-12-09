@@ -1,14 +1,23 @@
-<h3>{{ data.title || data.name }}</h3>
-<p>{{ data.release_date | date: "yyyy" }}</p>
-<p>Which list would you like to add this title to?</p>
-<select name="watchStatus" id="watchStatus">
-  <option value="Watching!">Watching!</option>
-  <option value="Want to Watch!">Want to Watch!</option>
-  <option value="Watched!">Watched!</option>
-</select>
-<p>Where would you like to watch this title at?</p>
-<div class="options">
-  <button class="btn btn-success">Location</button>
+<h1>Where would you like to watch this title at?</h1>
+<p>{{ data.detailsInfo.title}}</p>
+<!-- list -->
+<div class="main">
+  <div *ngFor="let info of data.detailsInfo.service; let i = index">
+    <input type="radio" id="stream{{i}}" name="stream" value="{{info.streamingType}}" [(ngModel)]="selectedStreamingType">
+    <label for="stream{{i}}">{{info.streamingType}}</label>
+  </div>
+  <div class="footer-options">
+    <select name="watchStatus" id="watchStatus">
+      <option value="Watching!">Watching!</option>
+      <option value="Want to Watch!">Want to Watch!</option>
+      <option value="Watched!">Watched!</option>
+    </select>
+    <div class="options">
+      <button class="btn btn-success">Location</button>
+    </div>
+  </div>
 </div>
+
+
 <button class="btn" (click)="onCancel()">Close</button>
 
