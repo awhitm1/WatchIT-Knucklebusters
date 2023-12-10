@@ -15,7 +15,7 @@ export class SearchDetailsComponent implements OnInit{
 
   resultDetails: Media;
   streamingInfo: StreamInfo[] = [];
-  selectedStreamingType: string;
+  selectedStreamingType: StreamInfo;
   mediaData: Media;
 
   constructor(
@@ -27,7 +27,7 @@ export class SearchDetailsComponent implements OnInit{
       this.mediaData = this.data.detailsInfo;
       this.listService.listObs.subscribe((res) => {
         console.log(res);
-        
+
       });
 
   }

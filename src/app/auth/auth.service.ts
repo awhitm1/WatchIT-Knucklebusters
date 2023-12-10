@@ -7,29 +7,27 @@ import { Media } from '../list-page/media.model';
 import { Router } from '@angular/router';
 
 const SIGN_UP_URL =
-`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=`;
+'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
 const SIGN_IN_URL =
-`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=`;
-
+'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
 const AUTH_API_KEY = 'AIzaSyB3dC7CPHd-IrfIM7ijbMxIvLEpM-PMCiE';
-
-
 export interface UserData {
   user: User,
   list: Media[]
 }
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor(private http: HttpClient) { }
-
-  currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  constructor(private http: HttpClient, private router: Router) { }
+  // Method to observe the current user
+  currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(new User('abc', '123', new Date()));
+  // BehaviorSubject to observe if the user has an account
   private hasAccountSource = new BehaviorSubject<boolean>(false);
   currentHasAccount = this.hasAccountSource.asObservable();
-
+  // Firebase URL
+  firebaseURL = 'https://watchit-45ab3-default-rtdb.firebaseio.com/';
+  // Method to sign up a user
   signUp(email: string, password: string, firstName: string, lastName: string) {
     return this.http.post<AuthResponseData>(SIGN_UP_URL + AUTH_API_KEY, {
       email,
@@ -38,11 +36,11 @@ export class AuthService {
     }).pipe(
       tap(res => {
         const { email, localId, idToken, expiresIn } = res;
-        this.handleAuth(email, localId, idToken, +expiresIn, firstName, lastName)
+        this.initializeFB(firstName, lastName, email, localId, idToken, +expiresIn);
       })
     )
   }
-
+  // Method to log in a user
   login(email: string, password: string, firstName: string, lastName: string) {
     return this.http.post<AuthResponseData>(SIGN_IN_URL + AUTH_API_KEY, {
       email,
@@ -50,12 +48,12 @@ export class AuthService {
       returnSecureToken: true
     }).pipe(
       tap(res => {
-        const { email, localId, idToken, expiresIn } = res;
-        this.handleAuth(email, localId, idToken, +expiresIn, firstName, lastName)
+        const authResponse = res;
+        this.fetchUser(authResponse)
       })
     )
   }
-
+  // Method to fetch user data from Firebase
   fetchUser(authResponse: AuthResponseData) {
     this.http.get<UserData>(this.firebaseURL + authResponse.localId + '.json').subscribe(res => {
       const { email, firstName, lastName } = res.user;
@@ -64,11 +62,23 @@ export class AuthService {
       localStorage.setItem("userData", JSON.stringify(user));
     })
   }
-
-
-
+  // Method to change the value of hasAccountSource
   changeHasAccount(hasAccount: boolean) {
     this.hasAccountSource.next(hasAccount);
+  }
+  // Method to initialize user data in Firebase
+  initializeFB(firstName: string, lastName: string, email: string, localId: string, idToken: string, expiresIn: number) {
+    let currentUserData: UserData = {
+      user: new User(email, idToken, new Date(new Date().getTime() + +expiresIn * 1000), localId, firstName, lastName),
+      list: []
+    }
+    this.http.put(this.firebaseURL + currentUserData.user.id + '.json', currentUserData).subscribe();
+  }
+  // Method to log out a user
+  logout() {
+    this.currentUser.next(null);
+    localStorage.removeItem("userData");
+    this.router.navigate(['/landing-page'])
   }
 }
 

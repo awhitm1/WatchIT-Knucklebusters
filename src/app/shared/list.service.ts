@@ -56,7 +56,11 @@ export class ListService implements OnInit, OnDestroy {
   constructor(private http: HttpClient, public auth: AuthService) { }
 
   ngOnInit(): void {
-
+    this.currentUserSub = this.auth.currentUser.subscribe((user) => {
+      console.log("from listscv: ", user);
+      this.loggedInUser = user;
+    }
+  )
 
     // Need to call method to fetch from Firebase
 
@@ -70,7 +74,7 @@ export class ListService implements OnInit, OnDestroy {
       this.currentUserSub.unsubscribe();
   }
   addMedia(media: Media){
-
+    console.log(media);
     // check if media status is set
     if (!!media.status){
       this.myList.push(media);

@@ -37,6 +37,10 @@ export class AuthComponent implements OnInit{
         // this.hasAccount = hasAccount;
       }
     })
+
+    // this.authService.currentUser.subscribe((user) => {
+    //   console.log(user);
+    // })
   }
 
   onSwitchAuthMode() {

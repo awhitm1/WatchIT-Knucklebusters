@@ -31,6 +31,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   dataSourcePop: MatTableDataSource<TitleDetailsResponseData>;
   popularList: TitleDetailsResponseData[];
   popularListSub: Subscription;
+  loggedInUserSub: Subscription;
   loggedInUser: User;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -39,8 +40,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   constructor(private listsvc: ListService, public dialog: MatDialog, public auth: AuthService){}
 
   ngOnInit(): void {
-    this.loggedInUser = this.auth.currentUser.value;
-    console.log("from list svc: ", this.loggedInUser);
+
     this.myMedia = this.listsvc.getMyList();
     this.statusFilter = 'All';
     // For Mat Table
@@ -79,7 +79,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   ngOnDestroy(): void {
     this.listSub.unsubscribe();
     this.detailsSub.unsubscribe();
-    this.popularListSub.unsubscribe();
+    // this.popularListSub.unsubscribe();
   }
   //Part of Mat Table
   applyFilter(event: Event) {
