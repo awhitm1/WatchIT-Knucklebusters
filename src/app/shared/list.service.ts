@@ -4,7 +4,7 @@ import { StreamInfo } from '../list-page/streamInfo.model';
 import { Subject, Subscription, take} from 'rxjs';
 import { Price } from '../list-page/price.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { AuthService } from '../auth/auth.service';
+import { AuthService, UserData } from '../auth/auth.service';
 import { User } from './user.model';
 
 
@@ -27,15 +27,12 @@ export interface TitleDetailsResponseData {
   media_type?: string,
 }
 
-export interface AppData {
-  user: User,
-  mediaList: Media[]
-}
-
 @Injectable({
   providedIn: 'root'
 })
-export class ListService implements OnInit, OnDestroy {
+export class ListService {
+  firebaseURL = 'https://watchit-45ab3-default-rtdb.firebaseio.com/';
+
   listObs = new Subject<Media[]>;
   detailsObs = new Subject<TitleDetailsResponseData>;
   selectedDetails: TitleDetailsResponseData = {backdrop_path: '', genres: [{name:''}], homepage: '', id: null, overview: '', poster_path: '', release_date: '', runtime: null, tagline: '', title: '', vote_average: null};
@@ -43,48 +40,69 @@ export class ListService implements OnInit, OnDestroy {
   popListObs = new Subject<TitleDetailsResponseData[]>;
   currentUserSub: Subscription;
   loggedInUser: User;
+  loggedInUserData: UserData;
+  myList: Media[];
 
-  myList: Media[] = [
-    new Media ('The Batman', 2022, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/dfa50804-e6f6-4fa2-a732-693dbc50527b', 'uhd'), 'tt1877830', 414906, 'movie', 'Watching!' ),
-    new Media ('The Dark Knight Rises', 2012, new StreamInfo ('netflix', 'subscription', 'https://www.netflix.com/title/70213514/'), 'tt1345836', 49026, 'movie', 'Watching!' ),
-    new Media ('Batman Forever', 1995, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/506c2994-fa03-452b-9131-e25d68fac01f', 'uhd'), 'tt1877830', 414, 'movie', 'Want to Watch!' ),
-    new Media ('Batman Returns', 1992, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/7ebb10fa-4552-405c-a5d2-3cc5b21193c7', 'uhd'), 'tt0103776', 364, 'movie', 'Want to Watch!' ),
-    new Media ('Batman', 1966, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/5e0da7f2-7422-4e58-8023-60bbd37adf33', null, new Price(3.99, 'usd')), 'tt0060153', 2661, 'movie', 'Watched!')
-  ];
+  // myList: Media[] = [new Media('', null, new StreamInfo('', '', ''), '', null,'')];
+
+  // myList: Media[] = [
+  //   new Media ('The Batman', 2022, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/dfa50804-e6f6-4fa2-a732-693dbc50527b', 'uhd'), 'tt1877830', 414906, 'movie', 'Watching!' ),
+  //   new Media ('The Dark Knight Rises', 2012, new StreamInfo ('netflix', 'subscription', 'https://www.netflix.com/title/70213514/'), 'tt1345836', 49026, 'movie', 'Watching!' ),
+  //   new Media ('Batman Forever', 1995, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/506c2994-fa03-452b-9131-e25d68fac01f', 'uhd'), 'tt1877830', 414, 'movie', 'Want to Watch!' ),
+  //   new Media ('Batman Returns', 1992, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/7ebb10fa-4552-405c-a5d2-3cc5b21193c7', 'uhd'), 'tt0103776', 364, 'movie', 'Want to Watch!' ),
+  //   new Media ('Batman', 1966, new StreamInfo ('hbo', 'subscription', 'https://play.max.com/movie/5e0da7f2-7422-4e58-8023-60bbd37adf33', null, new Price(3.99, 'usd')), 'tt0060153', 2661, 'movie', 'Watched!')
+  // ];
 
 
-  constructor(private http: HttpClient, public auth: AuthService) { }
+  constructor(private http: HttpClient, public auth: AuthService) {
+    this.initUserData();
+   }
 
-  ngOnInit(): void {
+  initUserData(){
+    // Setup subscription to currentUser
     this.currentUserSub = this.auth.currentUser.subscribe((user) => {
       console.log("from listscv: ", user);
       this.loggedInUser = user;
-    }
-  )
+      this.fetchFromFirebase(this.loggedInUser);
+    });
 
     // Need to call method to fetch from Firebase
 
     console.log("service init: ", this.myList);
 
     // Probably move this to the fetch from Firebase method
-    this.listObs.next(this.myList.slice());
+
   }
 
-  ngOnDestroy(): void {
-      this.currentUserSub.unsubscribe();
+  fetchFromFirebase(user: User){
+    this.http.get<UserData>(this.firebaseURL+user.id+".json",{}).subscribe((res: UserData) => {
+      this.loggedInUserData = res;
+      this.myList = res.list;
+      if (this.myList){
+        this.listObs.next(this.myList.slice());
+      }
+    })
   }
+
   addMedia(media: Media){
     console.log(media);
+    console.log("myList: ", this.myList)
+
     // check if media status is set
-    if (!!media.status){
+    if (!!media.status && this.myList){
+      this.myList.push(media);
+      this.listObs.next(this.myList.slice());
+    } else if (this.myList){
+      media.status = 'Want to Watch!';
       this.myList.push(media);
       this.listObs.next(this.myList.slice());
     } else {
       media.status = 'Want to Watch!';
-      this.myList.push(media);
-      this.listObs.next(this.myList.slice());
+      this.myList = [media];
+      this.listObs.next(this.myList.slice())
     }
-    // ** Need to Save myList to Firebase **
+
+    this.updateList(this.myList);
   }
 
   getListIndexByTmdbId(tmdbId: number){
@@ -94,12 +112,16 @@ export class ListService implements OnInit, OnDestroy {
 
   delMedia(tmdbId: number){
     this.myList.splice(this.getListIndexByTmdbId(tmdbId),1);
+    this.updateList(this.myList);
     this.listObs.next(this.myList.slice());
     // ** Need to Save myList to Firebase **
   }
 
   getMyList(){
-    return this.myList.slice();
+    if (this.myList){
+      return this.myList.slice();
+    }
+
   }
 
   getDetails(tmdbId: number){
@@ -141,12 +163,9 @@ export class ListService implements OnInit, OnDestroy {
 
   // For when the list is modified (edit/update an item)
   updateList(newList: Media[]){
-    this.myList = newList;
-
     // Need code to send to firebase
-
-    // next out the updated list to anyone listening
-    this.listObs.next(this.myList)
+    this.loggedInUserData.list = newList;
+    this.http.put<UserData>(this.firebaseURL + this.loggedInUser.id + '.json', this.loggedInUserData).subscribe();
   }
 
   // Get List of Popular Media from TMDB
