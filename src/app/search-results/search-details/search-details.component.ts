@@ -3,8 +3,7 @@ import { NgForm } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Media } from 'src/app/list-page/media.model';
 import { StreamInfo } from 'src/app/list-page/streamInfo.model';
-import { ListService, TitleDetailsResponseData } from 'src/app/shared/list.service';
-
+import { ListService } from 'src/app/shared/list.service';
 
 @Component({
   selector: 'app-search-details',
@@ -13,9 +12,8 @@ import { ListService, TitleDetailsResponseData } from 'src/app/shared/list.servi
 })
 export class SearchDetailsComponent implements OnInit{
 
-  resultDetails: Media;
   streamingInfo: StreamInfo[] = [];
-  selectedStreamingType: string;
+  selectedStreamInfo: StreamInfo;
   mediaData: Media;
 
   constructor(
@@ -25,11 +23,10 @@ export class SearchDetailsComponent implements OnInit{
 
     ngOnInit(): void {
       this.mediaData = this.data.detailsInfo;
+      this.streamingInfo = this.data.detailsInfo.service;
       this.listService.listObs.subscribe((res) => {
         console.log(res);
-        
       });
-
   }
 
   onCancel() {
@@ -37,10 +34,11 @@ export class SearchDetailsComponent implements OnInit{
   }
 
   addMedia(form: NgForm) {
+    this.selectedStreamInfo = form.value.info;
     const newMedia: Media = {
       title: this.mediaData.title,
       year: this.mediaData.year,
-      service: this.mediaData.service,
+      service: form.value.info,
       imdbId: this.mediaData.imdbId,
       tmdbId: this.mediaData.tmdbId,
       type: this.mediaData.type,

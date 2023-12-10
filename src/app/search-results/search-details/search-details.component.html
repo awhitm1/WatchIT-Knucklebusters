@@ -2,13 +2,13 @@
 <p>{{ mediaData.title}}</p>
 <!-- list -->
 <form class="main" (ngSubmit)="addMedia(addForm)" #addForm="ngForm">
-  <div *ngFor="let info of mediaData.service; let i = index">
+  <div *ngFor="let info of streamingInfo; let i = index">
     <input
       type="radio"
-      id="stream{{i}}"
-      name="stream"
-      value="{{info.service[i]}}"
-      [(ngModel)]="selectedStreamingType"
+      id="info"
+      name="info"
+      [value]='info'
+      [(ngModel)]="selectedStreamInfo"
       class="me-2">
     <img src="https://media.movieofthenight.com/services/{{info.service}}/logo-light-theme.svg" width="50" alt="{{info.service}}"/>
     <label for="streamType">{{ info.streamingType | titlecase}}</label>
