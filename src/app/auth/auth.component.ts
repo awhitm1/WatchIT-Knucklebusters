@@ -34,7 +34,7 @@ export class AuthComponent implements OnInit{
   ngOnInit(): void {
     this.authService.currentHasAccount.subscribe({
       next: (hasAccount) => {
-        // this.hasAccount = hasAccount;
+        this.hasAccount = hasAccount;
       }
     })
 

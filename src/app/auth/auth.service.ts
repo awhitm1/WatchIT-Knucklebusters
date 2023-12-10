@@ -21,7 +21,7 @@ export interface UserData {
 export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
   // Method to observe the current user
-  currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(new User('abc', '123', new Date()));
+  currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   // BehaviorSubject to observe if the user has an account
   private hasAccountSource = new BehaviorSubject<boolean>(false);
   currentHasAccount = this.hasAccountSource.asObservable();
