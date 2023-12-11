@@ -25,8 +25,8 @@ export class SearchDetailsComponent implements OnInit{
       this.mediaData = this.data.detailsInfo;
       this.streamingInfo = this.data.detailsInfo.service;
       this.listService.listObs.subscribe((res) => {
-        console.log(res);
       });
+
   }
 
   onCancel() {

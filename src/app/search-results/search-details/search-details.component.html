@@ -1,6 +1,5 @@
 <h1>Where would you like to watch this title at?</h1>
 <p>{{ mediaData.title}}</p>
-<!-- list -->
 <form class="main" (ngSubmit)="addMedia(addForm)" #addForm="ngForm">
   <div *ngFor="let info of streamingInfo; let i = index">
     <input
@@ -11,7 +10,8 @@
       [(ngModel)]="selectedStreamInfo"
       class="me-2">
     <img src="https://media.movieofthenight.com/services/{{info.service}}/logo-light-theme.svg" width="50" alt="{{info.service}}"/>
-    <label for="streamType">{{ info.streamingType | titlecase}}</label>
+    <label for="streamType" class="me-2">{{ info.streamingType | titlecase }}</label>
+    <label for="streamPrice" *ngIf="!!info.price">{{ "$" + info.price.formatted }}</label>
   </div>
   <div class="footer-options">
     <select

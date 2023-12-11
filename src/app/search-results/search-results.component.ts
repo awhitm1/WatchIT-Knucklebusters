@@ -32,9 +32,11 @@ export class SearchResultsComponent implements OnInit{
         this.openModal(details)
       }
     })
+
   }
 
   openModal(details) {
+
     const detailsInfo: Media = {
       title: details.result.title,
       year: details.result.year,
