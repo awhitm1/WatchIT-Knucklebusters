@@ -29,18 +29,16 @@ export class SearchResultsComponent implements OnInit{
     this.searchService.searchTerm.subscribe(search => {
       this.searchTerm = search;
     });
-    console.log('this.searchterm from search results', this.searchTerm);
-
     this.searchService.searchMedia(this.searchTerm);
     this.searchDetailsSub = this.searchService.searchDetails.subscribe({
       next: (details: Media) => {
-        this.openModal(details)
+        this.openModal(details, this.searchService.searchResults)
       }
     })
 
   }
 
-  openModal(details) {
+  openModal(details, searchResults) {
 
     const detailsInfo: Media = {
       title: details.result.title,
@@ -52,7 +50,8 @@ export class SearchResultsComponent implements OnInit{
     }
     const dialogRef = this.dialog.open(SearchDetailsComponent, {
       data: {
-        detailsInfo
+        detailsInfo,
+        searchResults
       }
     });
   }

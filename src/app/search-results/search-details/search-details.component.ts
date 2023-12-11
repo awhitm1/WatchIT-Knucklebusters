@@ -15,6 +15,8 @@ export class SearchDetailsComponent implements OnInit{
   streamingInfo: StreamInfo[] = [];
   selectedStreamInfo: StreamInfo;
   mediaData: Media;
+  selectedBackdrop: string;
+  tmdb_img_baseURL = 'https://image.tmdb.org/t/p/original';
 
   constructor(
     public dialogRef: MatDialogRef<SearchDetailsComponent>,
@@ -26,6 +28,7 @@ export class SearchDetailsComponent implements OnInit{
       this.streamingInfo = this.data.detailsInfo.service;
       this.listService.listObs.subscribe((res) => {
       });
+      this.selectedBackdrop = this.data.detailsInfo.backdrop_path;
 
   }
 
