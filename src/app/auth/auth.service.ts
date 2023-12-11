@@ -21,13 +21,12 @@ export interface UserData {
   providedIn: 'root'
 })
 export class AuthService {
-
+ 
   constructor(private http: HttpClient) { }
 
   currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   private hasAccountSource = new BehaviorSubject<boolean>(false);
   currentHasAccount = this.hasAccountSource.asObservable();
-
   firebaseURL = 'https://watchit-45ab3-default-rtdb.firebaseio.com/';
 
   signUp(email: string, password: string, firstName: string, lastName: string) {

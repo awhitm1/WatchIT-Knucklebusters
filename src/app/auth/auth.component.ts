@@ -24,17 +24,17 @@ export class AuthComponent implements OnInit{
   signupForm: FormGroup;
   loginForm: FormGroup;
   errMsg: string = null;
-
-  hasAccount: boolean = true;
+  
+  hasAccount: boolean=true;
 
   authObsrv: Observable<AuthResponseData>;
 
-  constructor(private authService: AuthService, private router: Router) { }
-
+  constructor(public authService: AuthService, private router: Router) { }
+  //Changed authService to public-neha
   ngOnInit(): void {
     this.authService.currentHasAccount.subscribe({
       next: (hasAccount) => {
-        // this.hasAccount = hasAccount;
+        this.hasAccount = hasAccount;
       }
     })
   }
