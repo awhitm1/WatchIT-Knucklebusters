@@ -19,13 +19,13 @@ export interface UserData {
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) { }
-  // Method to observe the current user
+
+  constructor(private http: HttpClient) { }
+
   currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   // BehaviorSubject to observe if the user has an account
   private hasAccountSource = new BehaviorSubject<boolean>(false);
   currentHasAccount = this.hasAccountSource.asObservable();
-  // Firebase URL
   firebaseURL = 'https://watchit-45ab3-default-rtdb.firebaseio.com/';
   // Method to sign up a user
   signUp(email: string, password: string, firstName: string, lastName: string) {
