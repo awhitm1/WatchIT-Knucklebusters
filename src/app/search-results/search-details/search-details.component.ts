@@ -28,7 +28,9 @@ export class SearchDetailsComponent implements OnInit{
       this.streamingInfo = this.data.detailsInfo.service;
       this.listService.listObs.subscribe((res) => {
       });
-      this.selectedBackdrop = this.data.detailsInfo.backdrop_path;
+      this.selectedBackdrop = this.data.searchResults.backdrop_path;
+      console.log('this.data', this.data);
+
 
   }
 
