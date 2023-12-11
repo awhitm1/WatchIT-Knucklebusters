@@ -61,7 +61,6 @@ export class ListService {
   initUserData(){
     // Setup subscription to currentUser
     this.currentUserSub = this.auth.currentUser.subscribe((user) => {
-      console.log("from listscv: ", user);
       this.loggedInUser = user;
       this.fetchFromFirebase(this.loggedInUser);
     });
