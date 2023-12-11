@@ -16,11 +16,14 @@ export class NavbarComponent {
     this.router.navigate(['/auth']);
   }
   onSearchClick() {
-    this.searchService.searchMedia(this.searchTerm);
+    console.log('this.searchterm on search click', this.searchTerm);
+
+    const search = this.searchTerm
+    this.searchService.searchMedia(search);
     this.router.navigate(['/search-results']);
   }
   onLogoutClick() {
-  // this.authService.logout(); <!--Need to be implemented in auth component-->
+  this.authService.logout();
   this.router.navigate(['/']);
   }
 }

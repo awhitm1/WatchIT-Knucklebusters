@@ -22,10 +22,15 @@ export class SearchResultsComponent implements OnInit{
 
   tmdb_img_baseURL = 'https://image.tmdb.org/t/p/original';
 
-  constructor(public dialog: MatDialog, private searchService: SearchService) { }
+  constructor(public dialog: MatDialog, private searchService: SearchService) {
+  }
 
   ngOnInit(): void {
-    this.searchTerm = this.searchService.searchTerm;
+    this.searchService.searchTerm.subscribe(search => {
+      this.searchTerm = search;
+    });
+    console.log('this.searchterm from search results', this.searchTerm);
+
     this.searchService.searchMedia(this.searchTerm);
     this.searchDetailsSub = this.searchService.searchDetails.subscribe({
       next: (details: Media) => {

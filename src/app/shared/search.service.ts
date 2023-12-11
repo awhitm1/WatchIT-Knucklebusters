@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TitleDetailsResponseData } from './list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Media } from '../list-page/media.model';
 
 @Injectable({
@@ -14,12 +14,19 @@ export class SearchService {
   url = `https://api.themoviedb.org/3/search/multi?query=`;
   searchDetails = new Subject<Media>();
   media: Media;
-  searchTerm: string = 'harry potter';
+  searchTerm: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+   }
 
   searchMedia(searchTerm: string) {
+    if (searchTerm === null) {
+      return;
+    }
+    this.searchTerm.next(searchTerm);
+    console.log('this.searchterm from service', this.searchTerm);
+
     const authToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYTQyNGJlNWNiNGNjMTNmM2JlNzU3MWFkZWQ4NjA3ZiIsInN1YiI6IjY1Njk0Yjc2NjM1MzZhMDBlMTIwMTM1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-xsK5e95GPN9u1prRaUKxtymlpm2SxwRm9xMxCyEiqo';
 
     const headerDict = {
@@ -32,7 +39,7 @@ export class SearchService {
     }
     return this.http.get<any>(this.url + searchTerm + '&include_adult=false' + '&language=en-US', requestOptions).subscribe(res => {
       this.searchResults = res.results;
-      this.searchTerm = searchTerm;
+      this.searchTerm.next(searchTerm);
       this.searchResultsObs.next(this.searchResults.slice());
     } )
   }
