@@ -21,4 +21,9 @@ export class LandingPageComponent {
     this.searchService.searchMedia(this.searchTerm);
     this.router.navigate(['/search-results']);
   }
+  onSignupClick(){
+    this.authService.changeHasAccount(false);
+    this.router.navigate(['/auth']);
+    
+   }   
 }
