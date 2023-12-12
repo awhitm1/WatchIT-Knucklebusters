@@ -20,7 +20,7 @@ export interface UserData {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   // BehaviorSubject to observe if the user has an account
