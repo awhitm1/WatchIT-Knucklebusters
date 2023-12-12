@@ -10,7 +10,7 @@ import { SearchService } from '../search.service';
 })
 export class NavbarComponent {
   searchTerm: string;
-  
+
   constructor(public authService: AuthService,private router: Router,private searchService: SearchService) { }
   onLoginClick() {
     this.authService.changeHasAccount(true);
@@ -19,8 +19,8 @@ export class NavbarComponent {
    onSignupClick(){
     this.authService.changeHasAccount(false);
     this.router.navigate(['/auth']);
-    
-   }   
+
+   }
   onLogoutClick() {
   // this.authService.logout(); <!--Need to be implemented in auth component-->
   this.authService.changeHasAccount(false)

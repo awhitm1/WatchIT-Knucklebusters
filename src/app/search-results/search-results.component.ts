@@ -14,40 +14,54 @@ import { Subscription } from 'rxjs';
 export class SearchResultsComponent implements OnInit{
 
   searchResults: TitleDetailsResponseData[] = [];
+  searchResult: TitleDetailsResponseData;
   searchDetailsSub: Subscription;
   searchResultsSub = this.searchService.searchResultsObs.subscribe(obs => {
     this.searchResults = obs;
-    console.log(this.searchResults);
+    console.log('this.searchResults', this.searchResults);
+
   });
+  searchTerm: string;
 
   tmdb_img_baseURL = 'https://image.tmdb.org/t/p/original';
 
-
-  constructor(private listService: ListService, public dialog: MatDialog, private searchService: SearchService) { }
+  constructor(public dialog: MatDialog, private searchService: SearchService) {
+  }
 
   ngOnInit(): void {
-    this.searchService.searchMedia('harry potter');
+
+    this.searchService.searchTerm.subscribe(search => {
+      this.searchTerm = search;
+    });
+    this.searchService.searchMedia(this.searchTerm);
     this.searchDetailsSub = this.searchService.searchDetails.subscribe({
       next: (details: Media) => {
-        console.log(details, 'from sub');
         this.openModal(details)
       }
     })
+
   }
 
-  openModal(details: Media) {
+  openModal(details) {
+    this.searchResult = this.searchResults.find(result => result.id === details.result.tmdbId);
+
+    const detailsInfo: Media = {
+      title: details.result.title,
+      year: details.result.year,
+      service: details.result.streamingInfo.us,
+      imdbId: details.result.imdbId,
+      tmdbId: details.result.tmdbId,
+      type: details.result.type,
+    }
     const dialogRef = this.dialog.open(SearchDetailsComponent, {
       data: {
-        id: details.tmdbId,
-        title: details.title,
-        release_date: details.year,
+        detailsInfo,
+        searchResults: this.searchResult
       }
     });
   }
 
   fetchFromMovieTonight(id: number, mediaType: string) {
     this.searchService.fetchFromMovieTonight(id, mediaType);
-    console.log('fetching from movie tonight', id, mediaType);
-
   }
 }

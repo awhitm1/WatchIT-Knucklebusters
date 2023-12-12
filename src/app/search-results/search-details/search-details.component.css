@@ -1,0 +1,12 @@
+.overlay-container {
+  position: relative;
+  padding: 20px;
+  min-width: 60%;
+}
+
+.overlay-container > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}

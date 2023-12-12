@@ -10,11 +10,12 @@
 }
 
 .statusWant {
-  background-color: rgb(255, 249, 169);
+  background-color: #fdc99e;
 }
 .statusWatching {
-  background-color: #c8deff;
+  background-color:rgb(163, 245, 194)
+
 }
 .statusWatched {
-  background-color: #d8d8d8;
+  background-color: #c8deff;
 }
