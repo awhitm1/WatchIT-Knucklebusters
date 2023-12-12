@@ -14,9 +14,12 @@ import { Subscription } from 'rxjs';
 export class SearchResultsComponent implements OnInit{
 
   searchResults: TitleDetailsResponseData[] = [];
+  searchResult: TitleDetailsResponseData;
   searchDetailsSub: Subscription;
   searchResultsSub = this.searchService.searchResultsObs.subscribe(obs => {
     this.searchResults = obs;
+    console.log('this.searchResults', this.searchResults);
+
   });
   searchTerm: string;
 
@@ -26,19 +29,21 @@ export class SearchResultsComponent implements OnInit{
   }
 
   ngOnInit(): void {
+
     this.searchService.searchTerm.subscribe(search => {
       this.searchTerm = search;
     });
     this.searchService.searchMedia(this.searchTerm);
     this.searchDetailsSub = this.searchService.searchDetails.subscribe({
       next: (details: Media) => {
-        this.openModal(details, this.searchService.searchResults)
+        this.openModal(details)
       }
     })
 
   }
 
-  openModal(details, searchResults) {
+  openModal(details) {
+    this.searchResult = this.searchResults.find(result => result.id === details.result.tmdbId);
 
     const detailsInfo: Media = {
       title: details.result.title,
@@ -51,7 +56,7 @@ export class SearchResultsComponent implements OnInit{
     const dialogRef = this.dialog.open(SearchDetailsComponent, {
       data: {
         detailsInfo,
-        searchResults
+        searchResults: this.searchResult
       }
     });
   }
