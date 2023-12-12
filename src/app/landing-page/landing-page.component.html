@@ -4,13 +4,7 @@
             <h1>WatchIt</h1>
             <p>Your Ultimate Entertainment Companion</p>
         </div>
-        <div class="header-controls ">
-        <div class="header-right ">
-            
-            <input type="text" class="search-bar" placeholder="Search..." [(ngModel)]="searchTerm" (keyup.enter)="onSearchClick()">                       
-            <button class="login-button" (click)="onLoginClick()">Login</button>
-        </div>
-    </div>
+
     </header>
     <div class="container-fluid">
         <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -55,7 +49,7 @@
         <div class="cta-container">
             <h2>Discover, Organize, Enjoy!</h2>
             <p>Start managing your favorite shows with WatchIt. Your go-to app for a personalized entertainment experience.</p>
-            <a href="#" class="cta-button">Get Started</a>
+            <a class="cta-button" (click)="onSignupClick()">Get Started</a>
         </div>
 
         <div class="features-container">

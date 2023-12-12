@@ -30,7 +30,7 @@ export class AuthComponent implements OnInit{
   authObsrv: Observable<AuthResponseData>;
 
   constructor(public authService: AuthService, private router: Router) { }
-  //Changed authService to public-neha
+  
   ngOnInit(): void {
     this.authService.currentHasAccount.subscribe({
       next: (hasAccount) => {

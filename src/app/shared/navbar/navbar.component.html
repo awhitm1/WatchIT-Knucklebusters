@@ -13,8 +13,8 @@
 
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2" name="searchTerm" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchTerm">
-          <button class="btn btn-outline-success" type="submit" fdprocessedid="18wqmh" (click)="onSearchClick()">Search</button>
+          <input class="form-control me-2" name="searchTerm" type="search" placeholder="Please Login to Search" aria-label="Search" [(ngModel)]="searchTerm">
+          <button class="btn btn-outline-success" type="submit" fdprocessedid="18wqmh" (click)="onSearchClick()" [disabled]="!(authService.currentUser | async)">Search</button>
         </form>
         <ul class="navbar-nav">
           <li class="nav-item" *ngIf="!(authService.currentUser | async)">
