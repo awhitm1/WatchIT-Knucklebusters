@@ -78,3 +78,110 @@
 [NX Daemon Server] - 2023-12-14T00:03:43.782Z - [REQUEST]: Responding to the client. handleRequestFileData
 [NX Daemon Server] - 2023-12-14T00:03:43.782Z - Done responding to the client handleRequestFileData
 [NX Daemon Server] - 2023-12-14T00:03:43.782Z - Handled REQUEST_FILE_DATA. Handling time: 0. Response time: 0.
+[NX Daemon Server] - 2023-12-14T00:42:25.474Z - [WATCHER]: angular.json was created or restored
+[NX Daemon Server] - 2023-12-14T00:42:25.474Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:25.583Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-12-14T00:42:25.584Z - [REQUEST]: angular.json
+[NX Daemon Server] - 2023-12-14T00:42:25.584Z - [REQUEST]: 
+[NX Daemon Server] - 2023-12-14T00:42:25.602Z - Time taken for 'hash changed files from watcher' 4.115799999795854ms
+[NX Daemon Server] - 2023-12-14T00:42:55.546Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:55.609Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:55.688Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:55.858Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:55.922Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:56.371Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:56.425Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:56.495Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:56.682Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:56.743Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:56.822Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:56.884Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:56.961Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:57.515Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:57.654Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:57.732Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:57.809Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:57.888Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:57.983Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:58.168Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:58.371Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:58.602Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:59.223Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:59.334Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:59.529Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:59.579Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:59.637Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:59.703Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:59.779Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:42:59.981Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:00.058Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:00.213Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:00.291Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:00.401Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:00.462Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:00.594Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:00.647Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:00.757Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:00.818Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.188Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.259Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.321Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.372Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.436Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.487Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.538Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.591Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.651Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.701Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.751Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.810Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:01.981Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.031Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.088Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.140Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.196Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.256Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.308Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.387Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.441Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.495Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.555Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.614Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:02.669Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:11.028Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:43:11.105Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:46:08.951Z - [WATCHER]: src/app/home-page/home-page.component.ts was modified
+[NX Daemon Server] - 2023-12-14T00:46:08.951Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:46:09.152Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-12-14T00:46:09.152Z - [REQUEST]: angular.json,src/app/home-page/home-page.component.ts
+[NX Daemon Server] - 2023-12-14T00:46:09.152Z - [REQUEST]: 
+[NX Daemon Server] - 2023-12-14T00:46:09.161Z - Time taken for 'hash changed files from watcher' 0.41299999970942736ms
+[NX Daemon Server] - 2023-12-14T00:46:09.369Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:47:05.108Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:47:05.109Z - [WATCHER]: src/app/home-page/home-page.component.ts was modified
+[NX Daemon Server] - 2023-12-14T00:47:05.354Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:47:05.524Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-12-14T00:47:05.524Z - [REQUEST]: angular.json,src/app/home-page/home-page.component.ts
+[NX Daemon Server] - 2023-12-14T00:47:05.524Z - [REQUEST]: 
+[NX Daemon Server] - 2023-12-14T00:47:05.539Z - Time taken for 'hash changed files from watcher' 0.33040000032633543ms
+[NX Daemon Server] - 2023-12-14T00:47:09.621Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:47:09.622Z - [WATCHER]: src/app/home-page/home-page.component.ts was modified
+[NX Daemon Server] - 2023-12-14T00:47:10.425Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-12-14T00:47:10.425Z - [REQUEST]: angular.json,src/app/home-page/home-page.component.ts
+[NX Daemon Server] - 2023-12-14T00:47:10.425Z - [REQUEST]: 
+[NX Daemon Server] - 2023-12-14T00:47:10.434Z - Time taken for 'hash changed files from watcher' 0.3700000001117587ms
+[NX Daemon Server] - 2023-12-14T00:48:10.060Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:48:10.404Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T00:48:10.605Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T01:07:03.883Z - [WATCHER]: src/app/home-page/home-page.component.html was created or restored
+[NX Daemon Server] - 2023-12-14T01:07:03.883Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T01:07:03.992Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-12-14T01:07:03.992Z - [REQUEST]: angular.json,src/app/home-page/home-page.component.ts,src/app/home-page/home-page.component.html
+[NX Daemon Server] - 2023-12-14T01:07:03.992Z - [REQUEST]: 
+[NX Daemon Server] - 2023-12-14T01:07:04.000Z - Time taken for 'hash changed files from watcher' 0.3168000001460314ms
+[NX Daemon Server] - 2023-12-14T01:07:08.614Z - [WATCHER]: src/app/home-page/home-page.component.ts was created or restored
+[NX Daemon Server] - 2023-12-14T01:07:08.614Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-12-14T01:07:08.722Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-12-14T01:07:08.722Z - [REQUEST]: angular.json,src/app/home-page/home-page.component.ts,src/app/home-page/home-page.component.html
+[NX Daemon Server] - 2023-12-14T01:07:08.722Z - [REQUEST]: 
+[NX Daemon Server] - 2023-12-14T01:07:08.731Z - Time taken for 'hash changed files from watcher' 0.32560000009834766ms
