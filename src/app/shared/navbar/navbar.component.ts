@@ -21,13 +21,9 @@ export class NavbarComponent {
     this.router.navigate(['/auth']);
 
    }
-  onLogoutClick() {
-  // this.authService.logout(); <!--Need to be implemented in auth component-->
-  this.authService.changeHasAccount(false)
-  this.router.navigate(['/']);
-}
-onSearchClick() {
-  this.searchService.searchMedia(this.searchTerm);
-  this.router.navigate(['/search-results']);
+ 
+    onSearchClick() {
+    this.searchService.searchMedia(this.searchTerm);
+    this.router.navigate(['/search-results']);
  }
 }
