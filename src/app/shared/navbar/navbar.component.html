@@ -25,7 +25,7 @@
             <a class="nav-link" routerLink="auth" (click)="onLoginClick()">Login</a>
           </li>
           <li class="nav-item" *ngIf="(authService.currentUser | async) as user">
-            <a class="nav-link" href="#" (click)="onLogoutClick()">Logout</a>
+            <a class="nav-link" href="#" (click)="authService.logout()">Logout</a>
           </li>
         </ul>
 
