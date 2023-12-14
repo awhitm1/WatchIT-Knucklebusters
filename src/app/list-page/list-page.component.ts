@@ -28,9 +28,9 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   displayedColumns: string[] = ['index','title', 'year', 'status', 'type', 'service', 'Actions', 'cost'];
   displayedColumnsPop: string[] = ['index', 'image', 'title', 'year']
   dataSource: MatTableDataSource<Media>;
-  dataSourcePop: MatTableDataSource<TitleDetailsResponseData>;
-  popularList: TitleDetailsResponseData[];
-  popularListSub: Subscription;
+  // dataSourcePop: MatTableDataSource<TitleDetailsResponseData>;
+  // popularList: TitleDetailsResponseData[];
+  // popularListSub: Subscription;
   loggedInUserSub: Subscription;
   loggedInUser: User;
 
@@ -58,22 +58,17 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
       this.openDialog();
     })
 
-    this.popularListSub = this.listsvc.popListObs.subscribe(pop => {
-      this.popularList = pop;
-      this.dataSourcePop = new MatTableDataSource(this.popularList);
-      this.dataSourcePop.paginator = this.paginator;
-      this.dataSourcePop.sort = this.sort;
-
-    })
-
-    console.log("myMedia: ", this.myMedia)
-
+    // this.popularListSub = this.listsvc.popListObs.subscribe(pop => {
+    //   this.popularList = pop;
+    //   this.dataSourcePop = new MatTableDataSource(this.popularList);
+    //   this.dataSourcePop.paginator = this.paginator;
+    //   this.dataSourcePop.sort = this.sort;
+    // })
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
   }
 
   ngOnDestroy(): void {
@@ -81,6 +76,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
     this.detailsSub.unsubscribe();
     // this.popularListSub.unsubscribe();
   }
+
   //Part of Mat Table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -91,26 +87,23 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
     }
   }
 
-
   delMedia(id: number){
     this.listsvc.delMedia(id)
   }
 
   getInfo(id: number){
     this.listsvc.getDetails(id);
-
   }
 
   // Modal trigger
   openDialog(): void {
     const id = this.titleDetails.id;
     const idx = this.myMedia.findIndex(medias => medias.tmdbId === id);
-    this.titleDetails.watchURL = this.myMedia[idx].service.linkUrl;
+    this.titleDetails.watchURL = this.myMedia[idx].service.link;
     const dialogRef = this.dialog.open(ItemDetailsComponent, {
       maxWidth: 800,
       data: this.titleDetails
     });
-
   }
 
   onChangeFilter(){
@@ -124,12 +117,16 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }
-
   }
 
   onChangeStatus(){
     this.listsvc.updateList(this.myMedia.slice());
     console.log(this.myMedia)
+  }
+
+  openLink(url: string){
+    console.log(url);
+    window.open(url, "_blank")
   }
 
   // getPops(){

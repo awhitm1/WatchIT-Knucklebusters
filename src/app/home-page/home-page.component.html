@@ -3,18 +3,11 @@
   <h2 class="title">Welcome {{ userId }} to WatchIt!</h2>
   <!-- <img src="https://cdn.pixabay.com/animation/2022/10/06/19/34/19-34-14-12_512.gif" class="img-background" alt="planet"> -->
   <div class="card-container d-flex flex-row flex-wrap justify-content-between">
-    <div class="card">
-      <img src="https://picsum.photos/200" class="card-img-top img-fluid" alt="random pictures">
+    <div class="card"
+     *ngFor="let pop of popularList">
+      <img src="https://image.tmdb.org/t/p/original{{pop.poster_path}}" style="max-width: 200px;" class="card-img-top img-fluid" alt="random pictures">
       <div class="card-body">
-        <h5 class="card-title"><b>New Release!</b></h5>
-        <p class="card-text"><i>Available Now!</i></p>
-        <a href="#" class="btn btn-dark">PLAY</a>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://picsum.photos/200" class="card-img-top img-fluid" alt="random pictures">
-      <div class="card-body">
-        <h5 class="card-title"><b>New Release!</b></h5>
+        <h5 class="card-title"><b>{{pop.title}}</b></h5>
         <p class="card-text"><i>Available Now!</i></p>
         <a href="#" class="btn btn-dark">PLAY</a>
       </div>
@@ -39,7 +32,8 @@
   <details>
     <summary>Can I cancel WatchIt?</summary>
     <div class="description">
-      <p>Sorry to see you go. <u>Unsubscribe Here.</u></p>
+      <p>Sorry to see you go. <u onclick="unsub()" style="cursor: pointer;">
+        Unsubscribe Here.</u></p>
     </div>
   </details>
   <details>
