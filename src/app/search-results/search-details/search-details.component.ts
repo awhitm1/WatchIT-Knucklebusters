@@ -30,8 +30,6 @@ export class SearchDetailsComponent implements OnInit{
       });
       this.selectedBackdrop = this.data.searchResults.backdrop_path;
       console.log('this.data', this.data);
-
-
   }
 
   onCancel() {
