@@ -17,6 +17,7 @@ export class ItemDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // Brings in data from clicked list item
+    console.log("selected data: ", this.data)
       this.selectedItem.backdrop_path = this.data.backdrop_path;
       this.selectedItem.genres = this.data.genres;
       this.selectedItem.homepage = this.data.homepage;
@@ -38,5 +39,8 @@ export class ItemDetailsComponent implements OnInit {
 
   }
 
-
+  openLink(url: string){
+    console.log("opening: ", url);
+    window.open(url, "_blank")
+  }
 }
