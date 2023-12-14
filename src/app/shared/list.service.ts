@@ -168,24 +168,24 @@ export class ListService {
   }
 
   // Get List of Popular Media from TMDB
-  // getPopular(){
-  //   const tmdbRootUrl = 'https://api.themoviedb.org/3/movie/';
-  //   const authToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYTQyNGJlNWNiNGNjMTNmM2JlNzU3MWFkZWQ4NjA3ZiIsInN1YiI6IjY1Njk0Yjc2NjM1MzZhMDBlMTIwMTM1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-xsK5e95GPN9u1prRaUKxtymlpm2SxwRm9xMxCyEiqo';
+  getPopular(){
+    const tmdbRootUrl = 'https://api.themoviedb.org/3/movie/';
+    const authToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYTQyNGJlNWNiNGNjMTNmM2JlNzU3MWFkZWQ4NjA3ZiIsInN1YiI6IjY1Njk0Yjc2NjM1MzZhMDBlMTIwMTM1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-xsK5e95GPN9u1prRaUKxtymlpm2SxwRm9xMxCyEiqo';
 
-  //   const headerDict = {
-  //     'accept': 'application/json',
-  //     'Authorization': authToken
-  //   }
+    const headerDict = {
+      'accept': 'application/json',
+      'Authorization': authToken
+    }
 
-  //   const requestOptions = {
-  //     headers: new HttpHeaders(headerDict),
-  //   }
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    }
 
-  //   return this.http.get<any>(tmdbRootUrl + 'popular?language=en-US', requestOptions).subscribe(res => {
-  //     this.popList = res.results;
-  //     this.popListObs.next(this.popList)
-  //   });
-  // }
+    return this.http.get<any>(tmdbRootUrl + 'popular?language=en-US', requestOptions).subscribe(res => {
+      this.popList = res.results;
+      this.popListObs.next(this.popList)
+    });
+  }
 
   // fetchFromMovieTonight(id: number) {
   //   const movieTonightBaseURL = 'https://streaming-availability.p.rapidapi.com/get?output_language=en&tmdb_id=';
