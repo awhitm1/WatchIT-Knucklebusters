@@ -4,7 +4,7 @@ export class StreamInfo {
   constructor(
     public service: string,
     public streamingType: string,
-    public linkUrl: string,
+    public link: string,
     public quality?: string,
     public price?: Price,
   ){}
