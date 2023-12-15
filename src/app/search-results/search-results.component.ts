@@ -43,7 +43,9 @@ export class SearchResultsComponent implements OnInit{
   }
 
   openModal(details) {
+    console.log('opened modal');
     this.searchResult = this.searchResults.find(result => result.id === details.result.tmdbId);
+
 
     const detailsInfo: Media = {
       title: details.result.title,
