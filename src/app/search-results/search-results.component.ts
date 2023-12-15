@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Media } from '../list-page/media.model';
 import { ListService, TitleDetailsResponseData } from '../shared/list.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.css']
 })
-export class SearchResultsComponent implements OnInit{
+export class SearchResultsComponent implements OnInit, OnDestroy{
 
   searchResults: TitleDetailsResponseData[] = [];
   searchResult: TitleDetailsResponseData;
@@ -36,16 +36,17 @@ export class SearchResultsComponent implements OnInit{
     this.searchService.searchMedia(this.searchTerm);
     this.searchDetailsSub = this.searchService.searchDetails.subscribe({
       next: (details: Media) => {
-        this.openModal(details)
+          this.openModal(details);
       }
     })
-
   }
 
   openModal(details) {
-    console.log('opened modal');
+    if (details.result.streamingInfo.us === undefined) {
+      alert('No streaming info available for this title');
+      return;
+    }
     this.searchResult = this.searchResults.find(result => result.id === details.result.tmdbId);
-
 
     const detailsInfo: Media = {
       title: details.result.title,
@@ -65,5 +66,10 @@ export class SearchResultsComponent implements OnInit{
 
   fetchFromMovieTonight(id: number, mediaType: string) {
     this.searchService.fetchFromMovieTonight(id, mediaType);
+  }
+
+  ngOnDestroy(): void {
+    this.searchResultsSub.unsubscribe();
+    this.searchDetailsSub.unsubscribe();
   }
 }
