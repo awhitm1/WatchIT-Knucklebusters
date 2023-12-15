@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { ListService, TitleDetailsResponseData } from '../shared/list.service';
+import { Media } from '../list-page/media.model';
 
 @Component({
   selector: 'app-home-page',
@@ -18,8 +19,19 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   constructor (private authService: AuthService, private listService: ListService) {}
 
-  unsub(){
+  unSub(){
     alert("You have unsubscribed!");
+  }
+
+  addToList(i) {
+    alert("To be added soon!");
+    // const newMedia: Media = {
+    //   title: this.popularList[i].title,
+    //   year: +this.popularList[i].release_date,
+    //   service:
+    //   imdbId:
+    //   tmdbId:
+    // }
   }
 
   ngOnInit() {
