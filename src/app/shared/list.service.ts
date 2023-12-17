@@ -33,6 +33,8 @@ export interface TitleDetailsResponseData {
 export class ListService {
   firebaseURL = 'https://watchit-45ab3-default-rtdb.firebaseio.com/';
 
+  // listObs = new BehaviorSubject<Media[]>([]);
+  // detailsObs = new BehaviorSubject<TitleDetailsResponseData | null>(null);
   listObs = new Subject<Media[]>;
   detailsObs = new Subject<TitleDetailsResponseData>;
   selectedDetails: TitleDetailsResponseData = {backdrop_path: '', genres: [{name:''}], homepage: '', id: null, overview: '', poster_path: '', release_date: '', runtime: null, tagline: '', title: '', vote_average: null};
