@@ -60,7 +60,6 @@ export class ListService {
     this.http.get<UserData>(this.firebaseURL+user.id+".json",{}).subscribe((res: UserData) => {
       this.loggedInUserData = res;
       this.myList = res.list;
-      console.log("list svc fetch: ", this.myList)
       if (this.myList){
         this.listObs.next(this.myList.slice());
       }

@@ -109,11 +109,11 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
 
   onChangeStatus(){
     this.listsvc.updateList(this.myMedia.slice());
-    console.log(this.myMedia)
+
   }
 
   openLink(url: string){
-    console.log(url);
+
     window.open(url, "_blank")
   }
 }
