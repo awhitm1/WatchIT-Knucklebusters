@@ -55,8 +55,7 @@ export class ListService {
       this.loggedInUser = user;
       // Get currentUser's data from Firebase
       if (!!this.loggedInUser){
-        console.log("user from listsvc: ", this.loggedInUser)
-        this.fetchFromFirebase(this.loggedInUser);
+         this.fetchFromFirebase(this.loggedInUser);
       }
     });
   }
@@ -72,9 +71,6 @@ export class ListService {
   }
 
   addMedia(media: Media){
-    console.log(media);
-    console.log("myList: ", this.myList)
-
     // check if media status is set
     if (!!media.status && this.myList){
       this.myList.push(media);
@@ -175,21 +171,4 @@ export class ListService {
     const reShuffledPop = this.popList.sort(() => 0.5 - Math.random())
     this.popListObs.next(reShuffledPop);
   }
-
-  // fetchFromMovieTonight(id: number) {
-  //   const movieTonightBaseURL = 'https://streaming-availability.p.rapidapi.com/get?output_language=en&tmdb_id=';
-
-  //   const headerDict = {
-  //     'X-RapidAPI-Key': '8719718adfmsh9353da1b46c546bp15d82bjsn414bc0a1edf0',
-	// 	  'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
-  //   }
-
-  //   const requestOptions = {
-  //     headers: new HttpHeaders(headerDict),
-  //   }
-
-  //   return this.http.get<Media>(movieTonightBaseURL + "movie/" + id, requestOptions).subscribe(res => {
-  //     console.log(res)
-  //   })
-  // }
 }
