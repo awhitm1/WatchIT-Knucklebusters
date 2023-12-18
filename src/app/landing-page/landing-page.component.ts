@@ -13,14 +13,6 @@ export class LandingPageComponent {
   searchTerm: string;
   constructor(private authService: AuthService, private router: Router,private searchService: SearchService) { }
   
-  onLoginClick() {
-    this.authService.changeHasAccount(true);
-    this.router.navigate(['/auth']);
-  }
-  onSearchClick() {
-    this.searchService.searchMedia(this.searchTerm);
-    this.router.navigate(['/search-results']);
-  }
   onSignupClick(){
     this.authService.changeHasAccount(false);
     this.router.navigate(['/auth']);

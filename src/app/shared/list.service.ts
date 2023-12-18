@@ -12,7 +12,7 @@ import { User } from './user.model';
 export interface TitleDetailsResponseData {
   backdrop_path: string,
   genres: [{
-      name: string}],
+    name: string}],
   homepage: string,
   id: number,
   overview: string,
@@ -33,6 +33,8 @@ export interface TitleDetailsResponseData {
 export class ListService {
   firebaseURL = 'https://watchit-45ab3-default-rtdb.firebaseio.com/';
 
+  // listObs = new BehaviorSubject<Media[]>([]);
+  // detailsObs = new BehaviorSubject<TitleDetailsResponseData | null>(null);
   listObs = new Subject<Media[]>;
   detailsObs = new Subject<TitleDetailsResponseData>;
   selectedDetails: TitleDetailsResponseData = {backdrop_path: '', genres: [{name:''}], homepage: '', id: null, overview: '', poster_path: '', release_date: '', runtime: null, tagline: '', title: '', vote_average: null};
@@ -52,7 +54,9 @@ export class ListService {
     this.currentUserSub = this.auth.currentUser.subscribe((user) => {
       this.loggedInUser = user;
       // Get currentUser's data from Firebase
-      this.fetchFromFirebase(this.loggedInUser);
+      if (!!this.loggedInUser){
+         this.fetchFromFirebase(this.loggedInUser);
+      }
     });
   }
 
@@ -67,9 +71,6 @@ export class ListService {
   }
 
   addMedia(media: Media){
-    console.log(media);
-    console.log("myList: ", this.myList)
-
     // check if media status is set
     if (!!media.status && this.myList){
       this.myList.push(media);
@@ -161,24 +162,13 @@ export class ListService {
 
     return this.http.get<any>(tmdbRootUrl + 'popular?language=en-US', requestOptions).subscribe(res => {
       this.popList = res.results;
-      this.popListObs.next(this.popList)
+      const shuffledPop = this.popList.sort(() => 0.5 - Math.random());
+      this.popListObs.next(shuffledPop)
     });
   }
 
-  // fetchFromMovieTonight(id: number) {
-  //   const movieTonightBaseURL = 'https://streaming-availability.p.rapidapi.com/get?output_language=en&tmdb_id=';
-
-  //   const headerDict = {
-  //     'X-RapidAPI-Key': '8719718adfmsh9353da1b46c546bp15d82bjsn414bc0a1edf0',
-	// 	  'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
-  //   }
-
-  //   const requestOptions = {
-  //     headers: new HttpHeaders(headerDict),
-  //   }
-
-  //   return this.http.get<Media>(movieTonightBaseURL + "movie/" + id, requestOptions).subscribe(res => {
-  //     console.log(res)
-  //   })
-  // }
+  getMorePops(){
+    const reShuffledPop = this.popList.sort(() => 0.5 - Math.random())
+    this.popListObs.next(reShuffledPop);
+  }
 }
