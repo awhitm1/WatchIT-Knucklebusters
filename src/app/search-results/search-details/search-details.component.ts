@@ -30,8 +30,6 @@ export class SearchDetailsComponent implements OnInit{
       });
       this.selectedBackdrop = this.data.searchResults.backdrop_path;
       console.log('this.data', this.data);
-
-
   }
 
   onCancel() {
@@ -49,6 +47,7 @@ export class SearchDetailsComponent implements OnInit{
       type: this.mediaData.type,
       status: form.value.status
     }
+    console.log("media being added: ", newMedia);
     this.listService.addMedia(newMedia);
     this.dialogRef.close();
   }

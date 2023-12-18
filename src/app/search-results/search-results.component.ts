@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Media } from '../list-page/media.model';
 import { ListService, TitleDetailsResponseData } from '../shared/list.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.css']
 })
-export class SearchResultsComponent implements OnInit{
+export class SearchResultsComponent implements OnInit, OnDestroy{
 
   searchResults: TitleDetailsResponseData[] = [];
   searchResult: TitleDetailsResponseData;
@@ -42,8 +42,15 @@ export class SearchResultsComponent implements OnInit{
 
   }
 
+  ngOnDestroy(): void {
+    this.searchDetailsSub.unsubscribe();
+
+  }
+
   openModal(details) {
+    console.log('opened modal');
     this.searchResult = this.searchResults.find(result => result.id === details.result.tmdbId);
+
 
     const detailsInfo: Media = {
       title: details.result.title,

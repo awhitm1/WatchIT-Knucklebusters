@@ -2,16 +2,23 @@
 <div class="page">
   <h2 class="title">Welcome {{ userId }} to WatchIt!</h2>
   <!-- <img src="https://cdn.pixabay.com/animation/2022/10/06/19/34/19-34-14-12_512.gif" class="img-background" alt="planet"> -->
-  <div class="card-container d-flex flex-row flex-wrap justify-content-between">
+  <div class="card-container d-flex flex-row flex-wrap justify-content-around">
     <div class="card"
-     *ngFor="let pop of popularList">
-      <img src="https://image.tmdb.org/t/p/original{{pop.poster_path}}" style="max-width: 200px;" class="card-img-top img-fluid" alt="random pictures">
+     *ngFor="let pop of popularList; let i = index">
+      <img
+      src="https://image.tmdb.org/t/p/original{{pop.backdrop_path}}" style="max-width: 15vw;"
+      class="card-img-top img-fluid"
+      alt="{{ pop.title }} || {{ name }}">
       <div class="card-body">
         <h5 class="card-title"><b>{{pop.title}}</b></h5>
         <p class="card-text"><i>Available Now!</i></p>
-        <a href="#" class="btn btn-dark">PLAY</a>
+        <button class="btn btn-dark" (click)="addToList(i)"> FIND </button>
       </div>
     </div>
+    <button class="btn btn-light" (click)="morePops()">More</button>
+  </div>
+  <div class="nowList justify-content-center" style="margin-top: 50vh; background-color: darkgrey;">
+    <app-list-page></app-list-page>
   </div>
 </div>
 
@@ -32,7 +39,7 @@
   <details>
     <summary>Can I cancel WatchIt?</summary>
     <div class="description">
-      <p>Sorry to see you go. <u onclick="unsub()" style="cursor: pointer;">
+      <p>Sorry to see you go. <u (click)="unSub()" style="cursor: pointer;">
         Unsubscribe Here.</u></p>
     </div>
   </details>

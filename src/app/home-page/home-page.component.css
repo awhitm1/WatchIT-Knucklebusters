@@ -34,7 +34,7 @@ summary {
   color: rgb(159, 150, 150);
   background-color: rgb(48, 47, 47);
   padding: 0.2rem;
-  margin-bottom: 0.5rem;
+  /* margin-bottom: 0.5rem; */
   border-radius: 0.2rem;
   cursor: pointer;
 }
