@@ -21,7 +21,6 @@ export class NavbarComponent {
     this.router.navigate(['/auth']);
 
    }
- 
     onSearchClick() {
     this.searchService.searchMedia(this.searchTerm);
     this.router.navigate(['/search-results']);
