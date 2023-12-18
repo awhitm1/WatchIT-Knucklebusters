@@ -163,8 +163,14 @@ export class ListService {
 
     return this.http.get<any>(tmdbRootUrl + 'popular?language=en-US', requestOptions).subscribe(res => {
       this.popList = res.results;
-      this.popListObs.next(this.popList)
+      const shuffledPop = this.popList.sort(() => 0.5 - Math.random());
+      this.popListObs.next(shuffledPop)
     });
+  }
+
+  getMorePops(){
+    const reShuffledPop = this.popList.sort(() => 0.5 - Math.random())
+    this.popListObs.next(reShuffledPop);
   }
 
   // fetchFromMovieTonight(id: number) {

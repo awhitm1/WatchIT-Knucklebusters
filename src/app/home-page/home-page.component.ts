@@ -31,7 +31,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   addToList(i) {
-    let newAdd = this.searchService.fetchFromMovieTonight(
+    this.searchService.fetchFromMovieTonight(
       this.popularList[i].id, 'movie'
     )
     this.searchResult = this.popularList[i];
@@ -47,6 +47,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
      this.userSub = this.authService.currentUser.subscribe((res) => {
+      console.log("user from home-page: ", res)
       this.userId = res.firstName;
     });
 
@@ -58,7 +59,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
     this.searchDetailsSub = this.searchService.searchDetails.subscribe({
       next: (details: Media) => {
-        this.openModal(details)
+        this.openModal(details);
+        console.log("pop list details: ", details)
       }
     })
 
@@ -92,5 +94,9 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
     this.popSub.unsubscribe();
     this.searchDetailsSub.unsubscribe();
+  }
+
+  morePops(){
+    this.listService.getMorePops();
   }
 }

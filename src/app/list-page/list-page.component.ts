@@ -42,6 +42,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
     // For Mat Table
     this.listSub = this.listsvc.listObs.subscribe((media: Media[]) => {
       this.myMedia = media;
+      console.log("new List recv'd: ", this.myMedia)
       this.dataSource = new MatTableDataSource(this.myMedia);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
