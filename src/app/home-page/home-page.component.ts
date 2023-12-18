@@ -47,8 +47,10 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
      this.userSub = this.authService.currentUser.subscribe((res) => {
-      console.log("user from home-page: ", res)
-      this.userId = res.firstName;
+
+      if (!!res){
+        this.userId = res.firstName;
+      }
     });
 
     this.listService.getPopular();
@@ -60,7 +62,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.searchDetailsSub = this.searchService.searchDetails.subscribe({
       next: (details: Media) => {
         this.openModal(details);
-        console.log("pop list details: ", details)
       }
     })
 
