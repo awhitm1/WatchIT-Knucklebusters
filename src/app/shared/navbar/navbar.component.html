@@ -16,7 +16,7 @@
 
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2" name="searchTerm" type="search" placeholder="{{ (authService.currentUser | async) ? 'Search' : 'Please Login to search' }}" aria-label="Search" [(ngModel)]="searchTerm">
+          <input class="form-control me-2" name="searchTerm" type="search" placeholder="{{ (authService.currentUser | async) ? 'Favourite Movies, TV, Web Shows' : 'Please Login to Search' }}" aria-label="Search" [(ngModel)]="searchTerm">
           <button class="btn btn-outline-success" type="submit" fdprocessedid="18wqmh" (click)="onSearchClick()" [disabled]="!(authService.currentUser | async)">Search</button>
         </form>
         <ul class="navbar-nav">
