@@ -41,11 +41,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy{
     })
   }
 
-  ngOnDestroy(): void {
-    this.searchDetailsSub.unsubscribe();
-
-  }
-
   openModal(details) {
     if (details.result.streamingInfo.us === undefined) {
       alert('No streaming info available for this title');
