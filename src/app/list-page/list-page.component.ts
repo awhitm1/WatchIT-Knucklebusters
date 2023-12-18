@@ -26,11 +26,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   myMedia: Media[];
   titleDetails: TitleDetailsResponseData;
   displayedColumns: string[] = ['index','title', 'year', 'status', 'type', 'service', 'Actions', 'cost'];
-  displayedColumnsPop: string[] = ['index', 'image', 'title', 'year']
   dataSource: MatTableDataSource<Media>;
-  // dataSourcePop: MatTableDataSource<TitleDetailsResponseData>;
-  // popularList: TitleDetailsResponseData[];
-  // popularListSub: Subscription;
   loggedInUserSub: Subscription;
   loggedInUser: User;
 
@@ -46,6 +42,7 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
     // For Mat Table
     this.listSub = this.listsvc.listObs.subscribe((media: Media[]) => {
       this.myMedia = media;
+      console.log("new List recv'd: ", this.myMedia)
       this.dataSource = new MatTableDataSource(this.myMedia);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -91,7 +88,6 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
   ngOnDestroy(): void {
     this.listSub.unsubscribe();
     this.detailsSub.unsubscribe();
-    // this.popularListSub.unsubscribe();
   }
 
   //Part of Mat Table
@@ -138,19 +134,11 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
 
   onChangeStatus(){
     this.listsvc.updateList(this.myMedia.slice());
-    console.log(this.myMedia)
+
   }
 
   openLink(url: string){
-    console.log(url);
+
     window.open(url, "_blank")
   }
-
-  // getPops(){
-  //   this.listsvc.getPopular()
-  // }
-
-  // fetchStreamInfo(id: number){
-  //   this.listsvc.fetchFromMovieTonight(id)
-  // }
 }

@@ -47,6 +47,7 @@ export class SearchDetailsComponent implements OnInit{
       type: this.mediaData.type,
       status: form.value.status
     }
+    console.log("media being added: ", newMedia);
     this.listService.addMedia(newMedia);
     this.dialogRef.close();
   }
