@@ -47,8 +47,10 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
      this.userSub = this.authService.currentUser.subscribe((res) => {
-      console.log("user from home-page: ", res)
-      this.userId = res.firstName;
+      console.log("user from home-page: ", res);
+      if (!!res){
+        this.userId = res.firstName;
+      }
     });
 
     this.listService.getPopular();

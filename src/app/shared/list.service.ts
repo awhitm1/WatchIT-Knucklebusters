@@ -54,7 +54,10 @@ export class ListService {
     this.currentUserSub = this.auth.currentUser.subscribe((user) => {
       this.loggedInUser = user;
       // Get currentUser's data from Firebase
-      this.fetchFromFirebase(this.loggedInUser);
+      if (!!this.loggedInUser){
+        console.log("user from listsvc: ", this.loggedInUser)
+        this.fetchFromFirebase(this.loggedInUser);
+      }
     });
   }
 
