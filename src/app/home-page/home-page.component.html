@@ -1,9 +1,9 @@
 
 <div class="page">
-  <h2 class="title">Welcome {{ userId }} to WatchIt!</h2>
+  <h2 class="title bg-dark">Welcome {{ userId }} to WatchIt!</h2>
   <!-- <img src="https://cdn.pixabay.com/animation/2022/10/06/19/34/19-34-14-12_512.gif" class="img-background" alt="planet"> -->
   <div class="card-container d-flex flex-row flex-wrap justify-content-around">
-    <div class="card"
+    <div class="card mt-2"
      *ngFor="let pop of popularList; let i = index">
       <img
       src="https://image.tmdb.org/t/p/original{{pop.backdrop_path}}" style="max-width: 15vw;"
@@ -15,14 +15,17 @@
         <button class="btn btn-dark" (click)="addToList(i)"> FIND </button>
       </div>
     </div>
-    <button class="btn btn-light" (click)="morePops()">More</button>
+    <button class="btn" (click)="morePops()"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="black" class="bi bi-arrow-clockwise" viewBox="0 0 16 16" style="background-color: white; border-radius: 15px">
+      <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+      <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+    </svg></button>
   </div>
   <div class="nowList justify-content-center" style="margin-top: 50vh; background-color: transparent;">
     <app-list-page></app-list-page>
   </div>
 </div>
 
-<footer class="faq-body">
+<footer class="faq-body bg-dark">
   <h2 style="font-weight: bold; color: rgb(127, 242, 255);">FAQs</h2>
   <details>
     <summary>What is WatchIt?</summary>
