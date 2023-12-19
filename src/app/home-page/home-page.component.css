@@ -69,3 +69,11 @@ summary {
   padding-top: 1px;
   padding-bottom: 1px;
 }
+
+.grow-on-hover {
+  transition: transform 0.3s ease;
+}
+
+.grow-on-hover:hover {
+  transform: scale(1.1);
+}
