@@ -5,15 +5,18 @@
   <div class="card-container d-flex flex-row flex-wrap justify-content-around">
     <div class="card mt-2 grow-on-hover"
      *ngFor="let pop of popularList; let i = index">
+     <a (click)="addToList(i)" style="cursor: pointer;">
       <img
       src="https://image.tmdb.org/t/p/original{{pop.backdrop_path}}" style="max-width: 15vw;"
       class="card-img-top img-fluid"
       alt="{{ pop.title }} || {{ name }}">
+
       <div class="card-body">
         <h5 class="card-title"><b>{{pop.title}}</b></h5>
         <p class="card-text"><i>Available Now!</i></p>
         <button class="btn btn-dark" (click)="addToList(i)"> FIND </button>
       </div>
+      </a>
     </div>
     <button class="btn grow-on-hover" (click)="morePops()"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="black" class="bi bi-arrow-clockwise" viewBox="0 0 16 16" style="background-color: white; border-radius: 15px">
       <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
