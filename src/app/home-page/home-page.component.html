@@ -5,15 +5,18 @@
   <div class="card-container d-flex flex-row flex-wrap justify-content-around">
     <div class="card"
      *ngFor="let pop of popularList; let i = index">
+     <a (click)="addToList(i)" style="cursor: pointer;">
       <img
       src="https://image.tmdb.org/t/p/original{{pop.backdrop_path}}" style="max-width: 15vw;"
       class="card-img-top img-fluid"
       alt="{{ pop.title }} || {{ name }}">
+
       <div class="card-body">
         <h5 class="card-title"><b>{{pop.title}}</b></h5>
         <p class="card-text"><i>Available Now!</i></p>
         <button class="btn btn-dark" (click)="addToList(i)"> FIND </button>
       </div>
+      </a>
     </div>
   </div>
   <div class="nowList justify-content-center" style="margin-top: 50vh; background-color: darkgrey;">
