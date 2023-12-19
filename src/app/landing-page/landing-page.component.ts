@@ -15,7 +15,12 @@ export class LandingPageComponent {
   
   onSignupClick(){
     this.authService.changeHasAccount(false);
-    this.router.navigate(['/auth']);
-    
+    this.authService.currentUser.subscribe((user) => {
+      if (user) {
+        this.router.navigate(['/home-page']);
+      } else {
+        this.router.navigate(['/auth']);
+      }
+    });
    }   
 }
