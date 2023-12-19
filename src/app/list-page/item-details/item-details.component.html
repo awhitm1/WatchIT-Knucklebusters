@@ -1,0 +1,19 @@
+<div class="card text-bg-dark">
+  <img src="{{ tmdb_img_baseURL + this.selectedItem.backdrop_path}}" class="card-img" style="opacity: 0.5" alt="..."/>
+  <div class="card-img-overlay">
+    <h5 class="card-title">{{this.selectedItem.title}} </h5>
+    <h6 class="card-title"><em>{{this.selectedItem.tagline}}</em></h6>
+    <p class="card-text">{{this.selectedItem.overview}}</p>
+    <p class="card-text"><small>Release Date: {{this.selectedItem.release_date}}</small></p>
+    <p class="card-text"><small>Length: {{this.selectedItem.runtime}} minutes</small></p>
+  </div>
+  <div mat-dialog-actions align="end">
+
+    <button mat-button mat-dialog-close (click)="onClose()">Close</button>
+
+    <button mat-button><a (click)="openLink(this.selectedItem.watchURL)"> Watch Now! <span><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-play-btn" viewBox="0 0 16 16">
+      <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>
+      <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+    </svg></span></a></button>
+  </div>
+</div>

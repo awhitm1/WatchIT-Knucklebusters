@@ -9,6 +9,18 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ListPageComponent } from './list-page/list-page.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ItemDetailsComponent } from './list-page/item-details/item-details.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { SearchDetailsComponent } from './search-results/search-details/search-details.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -18,11 +30,25 @@ import { ListPageComponent } from './list-page/list-page.component';
     HomePageComponent,
     SearchResultsComponent,
     NavbarComponent,
-    ListPageComponent
+    ListPageComponent,
+    ItemDetailsComponent,
+    SearchDetailsComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatButtonToggleModule
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]
