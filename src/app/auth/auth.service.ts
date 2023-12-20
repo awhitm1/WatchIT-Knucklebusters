@@ -5,12 +5,8 @@ import { User } from '../shared/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Media } from '../list-page/media.model';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
-const SIGN_UP_URL =
-'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
-const SIGN_IN_URL =
-'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
-const AUTH_API_KEY = 'AIzaSyB3dC7CPHd-IrfIM7ijbMxIvLEpM-PMCiE';
 export interface UserData {
   user: User,
   list: Media[]
@@ -21,15 +17,15 @@ export interface UserData {
 export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
-  //Jacob is the best!
+  
   currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   // BehaviorSubject to observe if the user has an account
   private hasAccountSource = new BehaviorSubject<boolean>(false);
   currentHasAccount = this.hasAccountSource.asObservable();
-  firebaseURL = 'https://watchit-45ab3-default-rtdb.firebaseio.com/';
+  
   // Method to sign up a user
   signUp(email: string, password: string, firstName: string, lastName: string) {
-    return this.http.post<AuthResponseData>(SIGN_UP_URL + AUTH_API_KEY, {
+    return this.http.post<AuthResponseData>(environment.SIGN_UP_URL + environment.AUTH_API_KEY, {
       email,
       password,
       returnSecureToken: true
@@ -42,7 +38,7 @@ export class AuthService {
   }
   // Method to log in a user
   login(email: string, password: string, firstName: string, lastName: string) {
-    return this.http.post<AuthResponseData>(SIGN_IN_URL + AUTH_API_KEY, {
+    return this.http.post<AuthResponseData>(environment.SIGN_IN_URL + environment.AUTH_API_KEY, {
       email,
       password,
       returnSecureToken: true
@@ -55,7 +51,7 @@ export class AuthService {
   }
   // Method to fetch user data from Firebase
   fetchUser(authResponse: AuthResponseData) {
-    this.http.get<UserData>(this.firebaseURL + authResponse.localId + '.json').subscribe(res => {
+    this.http.get<UserData>(environment.firebaseURL + authResponse.localId + '.json').subscribe(res => {
       const { email, firstName, lastName } = res.user;
       const user = new User(email, authResponse.idToken, new Date(authResponse.expiresIn), authResponse.localId, firstName, lastName);
       this.currentUser.next(user);
@@ -72,7 +68,7 @@ export class AuthService {
       user: new User(email, idToken, new Date(new Date().getTime() + +expiresIn * 1000), localId, firstName, lastName),
       list: []
     }
-    this.http.put(this.firebaseURL + currentUserData.user.id + '.json', currentUserData).subscribe();
+    this.http.put(environment.firebaseURL + currentUserData.user.id + '.json', currentUserData).subscribe();
   }
   // Method to log out a user
   logout() {

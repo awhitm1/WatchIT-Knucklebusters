@@ -11,6 +11,9 @@ import { SearchService } from '../shared/search.service';
 export class LandingPageComponent {
   
   searchTerm: string;
+  showSearchAlert = false;
+  showListAlert = false;
+
   constructor(private authService: AuthService, private router: Router,private searchService: SearchService) { }
   
   onSignupClick(){
@@ -22,5 +25,41 @@ export class LandingPageComponent {
         this.router.navigate(['/auth']);
       }
     });
-   }   
+   }  
+  //  onSmartSearchClick() {
+  //   this.authService.currentUser.subscribe((user) => {  
+  //   if (user) {
+  //     this.router.navigate(['/search-results']);
+  //   } else {
+  //     alert('Please login to use search functionality');
+  //   }
+  //   });
+  // }
+  onSmartSearchClick() {
+    this.authService.currentUser.subscribe((user) => {  
+      if (user) {
+        this.router.navigate(['/search-results']);
+      } else {
+        this.showSearchAlert = true;
+      }
+    });
+  }
+  // onWatchlistClick() {
+  //   this.authService.currentUser.subscribe((user) => {  
+  //   if (user) {
+  //     this.router.navigate(['/home-page']);
+  //   } else {
+  //     alert('Please login to watch your list');
+  //   }
+  //   });
+  // }
+  onWatchlistClick() {
+      this.authService.currentUser.subscribe((user) => {  
+      if (user) {
+        this.router.navigate(['/home-page']);
+      } else {
+        this.showListAlert = true;
+      }
+      });
+    }
 }
