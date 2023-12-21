@@ -1,13 +1,12 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Media } from './media.model';
-
 import { ListService, TitleDetailsResponseData } from '../shared/list.service';
 import { Subject, Subscription, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemDetailsComponent } from './item-details/item-details.component';
-import {MatTableDataSource } from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../shared/user.model';
 
@@ -53,30 +52,6 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
       this.titleDetails = obs;
       this.openDialog();
     })
-
-    // this.listSub = this.listsvc.listObs
-    // .pipe (
-    //   switchMap ((media: Media[]) => {
-    //     this.myMedia = media;
-    //     this.dataSource = new MatTableDataSource(this.myMedia);
-    //     this.dataSource.paginator = this.paginator;
-    //     this.dataSource.sort = this.sort;
-    //     return this.listsvc.detailsObs;
-    //   })
-    // )
-    // .subscribe ({
-    //   next: details => {
-    //     this.titleDetails = details;
-    //     this.openDialog();
-    //   }
-    // })
-
-    // this.popularListSub = this.listsvc.popListObs.subscribe(pop => {
-    //   this.popularList = pop;
-    //   this.dataSourcePop = new MatTableDataSource(this.popularList);
-    //   this.dataSourcePop.paginator = this.paginator;
-    //   this.dataSourcePop.sort = this.sort;
-    // })
   }
 
   ngAfterViewInit() {
@@ -133,7 +108,6 @@ export class ListPageComponent implements OnInit, OnDestroy, AfterViewInit{
 
   onChangeStatus(){
     this.listsvc.updateList(this.myMedia.slice());
-
   }
 
   openLink(url: string){

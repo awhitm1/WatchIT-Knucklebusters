@@ -77,7 +77,9 @@ export class AuthService {
       user: new User(email, idToken, new Date(new Date().getTime() + +expiresIn * 1000), localId, firstName, lastName),
       list: []
     }
-    this.http.put(this.envfirebaseURL + currentUserData.user.id + '.json', currentUserData).subscribe();
+
+    this.http.put(environment.firebaseURL + currentUserData.user.id + '.json', currentUserData).subscribe();
+    this.currentUser.next(currentUserData.user);
   }
   // Method to log out a user
   logout() {

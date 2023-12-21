@@ -1,8 +1,6 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Media } from '../list-page/media.model';
-import { StreamInfo } from '../list-page/streamInfo.model';
-import { BehaviorSubject, Subject, Subscription, take} from 'rxjs';
-import { Price } from '../list-page/price.model';
+import { Subject, Subscription, take} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { AuthService, UserData } from '../auth/auth.service';
 import { User } from './user.model';
@@ -31,8 +29,6 @@ export interface TitleDetailsResponseData {
   providedIn: 'root'
 })
 export class ListService {
- // listObs = new BehaviorSubject<Media[]>([]);
-  // detailsObs = new BehaviorSubject<TitleDetailsResponseData | null>(null);
   listObs = new Subject<Media[]>;
   detailsObs = new Subject<TitleDetailsResponseData>;
   selectedDetails: TitleDetailsResponseData = {backdrop_path: '', genres: [{name:''}], homepage: '', id: null, overview: '', poster_path: '', release_date: '', runtime: null, tagline: '', title: '', vote_average: null};
@@ -77,8 +73,9 @@ export class ListService {
   }
 
   addMedia(media: Media){
-    // check if media status is set
-    if (!!media.status && this.myList){
+    if (!media.service){
+      return;
+    } else if (!!media.status && this.myList){
       this.myList.push(media);
       this.listObs.next(this.myList.slice());
     } else if (this.myList){
