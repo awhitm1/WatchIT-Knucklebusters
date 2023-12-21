@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/watch-it",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
