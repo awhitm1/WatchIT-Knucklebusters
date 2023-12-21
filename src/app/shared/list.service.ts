@@ -6,7 +6,7 @@ import { Price } from '../list-page/price.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { AuthService, UserData } from '../auth/auth.service';
 import { User } from './user.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 
 
 export interface TitleDetailsResponseData {

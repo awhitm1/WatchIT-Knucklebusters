@@ -5,7 +5,7 @@ import { User } from '../shared/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Media } from '../list-page/media.model';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 
 export interface UserData {
   user: User,
