@@ -10,11 +10,20 @@ import { environment } from '../../environments/environment.prod';
 export interface UserData {
   user: User,
   list: Media[]
+
 }
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  envSIGN_UP_URL = environment.SIGN_UP_URL;
+  envSIGN_IN_URL = environment.SIGN_IN_URL;
+  envAUTH_API_KEY = environment.AUTH_API_KEY;
+  envtmdbRootUrl = environment.tmdbRootUrl;
+  envtmdb_img_baseURL = environment.tmdb_img_baseURL;
+  envfirebaseURL = environment.firebaseURL;
+  envauthToken = environment.authToken;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -25,7 +34,7 @@ export class AuthService {
 
   // Method to sign up a user
   signUp(email: string, password: string, firstName: string, lastName: string) {
-    return this.http.post<AuthResponseData>(environment.SIGN_UP_URL + environment.AUTH_API_KEY, {
+    return this.http.post<AuthResponseData>(this.envSIGN_UP_URL + this.envAUTH_API_KEY, {
       email,
       password,
       returnSecureToken: true
@@ -38,7 +47,7 @@ export class AuthService {
   }
   // Method to log in a user
   login(email: string, password: string, firstName: string, lastName: string) {
-    return this.http.post<AuthResponseData>(environment.SIGN_IN_URL + environment.AUTH_API_KEY, {
+    return this.http.post<AuthResponseData>(this.envSIGN_IN_URL + this.envAUTH_API_KEY, {
       email,
       password,
       returnSecureToken: true
@@ -51,7 +60,7 @@ export class AuthService {
   }
   // Method to fetch user data from Firebase
   fetchUser(authResponse: AuthResponseData) {
-    this.http.get<UserData>(environment.firebaseURL + authResponse.localId + '.json').subscribe(res => {
+    this.http.get<UserData>(this.envfirebaseURL + authResponse.localId + '.json').subscribe(res => {
       const { email, firstName, lastName } = res.user;
       const user = new User(email, authResponse.idToken, new Date(authResponse.expiresIn), authResponse.localId, firstName, lastName);
       this.currentUser.next(user);
@@ -68,6 +77,7 @@ export class AuthService {
       user: new User(email, idToken, new Date(new Date().getTime() + +expiresIn * 1000), localId, firstName, lastName),
       list: []
     }
+
     this.http.put(environment.firebaseURL + currentUserData.user.id + '.json', currentUserData).subscribe();
     this.currentUser.next(currentUserData.user);
   }

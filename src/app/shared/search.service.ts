@@ -3,6 +3,7 @@ import { TitleDetailsResponseData } from './list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Media } from '../list-page/media.model';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,14 @@ export class SearchService {
   searchDetails = new Subject<Media>();
   media: Media;
   searchTerm: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  envSIGN_UP_URL = environment.SIGN_UP_URL;
+  envSIGN_IN_URL = environment.SIGN_IN_URL;
+  envAUTH_API_KEY = environment.AUTH_API_KEY;
+  envtmdbRootUrl = environment.tmdbRootUrl;
+  envtmdb_img_baseURL = environment.tmdb_img_baseURL;
+  envfirebaseURL = environment.firebaseURL;
+  envauthToken = environment.authToken;
+  envRapidAPItoken = environment.rapidAPItoken;
 
 
   constructor(private http: HttpClient) {
@@ -26,7 +35,7 @@ export class SearchService {
     }
     this.searchTerm.next(searchTerm);
 
-    const authToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYTQyNGJlNWNiNGNjMTNmM2JlNzU3MWFkZWQ4NjA3ZiIsInN1YiI6IjY1Njk0Yjc2NjM1MzZhMDBlMTIwMTM1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-xsK5e95GPN9u1prRaUKxtymlpm2SxwRm9xMxCyEiqo';
+    const authToken = this.envauthToken;
 
     const headerDict = {
       'accept': 'application/json',
@@ -51,7 +60,7 @@ export class SearchService {
     const movieTonightBaseURL = 'https://streaming-availability.p.rapidapi.com/get?output_language=en&country=us&tmdb_id=';
 
     const headerDict = {
-      'X-RapidAPI-Key': '8719718adfmsh9353da1b46c546bp15d82bjsn414bc0a1edf0',
+      'X-RapidAPI-Key': this.envRapidAPItoken,
       'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
     }
 
