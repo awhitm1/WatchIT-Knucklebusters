@@ -17,12 +17,12 @@ export interface UserData {
 export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
-  
+
   currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   // BehaviorSubject to observe if the user has an account
   private hasAccountSource = new BehaviorSubject<boolean>(false);
   currentHasAccount = this.hasAccountSource.asObservable();
-  
+
   // Method to sign up a user
   signUp(email: string, password: string, firstName: string, lastName: string) {
     return this.http.post<AuthResponseData>(environment.SIGN_UP_URL + environment.AUTH_API_KEY, {

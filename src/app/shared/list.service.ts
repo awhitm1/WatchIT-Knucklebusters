@@ -106,7 +106,7 @@ export class ListService {
 
   getDetails(tmdbId: number){
     // Building the TMDB API call
-    
+
     const headerDict = {
       'accept': 'application/json',
       'Authorization': environment.authToken
@@ -144,7 +144,7 @@ export class ListService {
 
   // Get List of Popular Media from TMDB
   getPopular(){
-    
+
     const headerDict = {
       'accept': 'application/json',
       'Authorization': environment.authToken
