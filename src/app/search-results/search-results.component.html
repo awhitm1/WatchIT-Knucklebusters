@@ -1,5 +1,6 @@
 <div class="bg-dark">
   <h1 class="pt-3 ps-3" style="color: rgb(127, 242, 255)">Search Results for {{ searchTerm }}</h1>
+  <small style="color: whitesmoke; padding-right: 10px;">"This product uses the TMDB API but is not endorsed or certified by TMDB."</small><img src="assets/tmdb_logo.svg" width="100px" alt="TMDB logo"/>
 <div class="d-flex flex-wrap ms-1 justify-content-between" style="width: 95vw;">
   <div class="inner-card" *ngFor="let result of searchResults; let i = index">
     <div class="clickable-image grow-on-hover" *ngIf="!!result.title || !!result.name || results.media_type !='person'" style="cursor: pointer;">

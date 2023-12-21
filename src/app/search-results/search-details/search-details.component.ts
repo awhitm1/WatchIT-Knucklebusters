@@ -26,10 +26,10 @@ export class SearchDetailsComponent implements OnInit{
     ngOnInit(): void {
       this.mediaData = this.data.detailsInfo;
       this.streamingInfo = this.data.detailsInfo.service;
-      this.listService.listObs.subscribe((res) => {
-      });
+      // this.listService.listObs.subscribe((res) => {
+      // });
       this.selectedBackdrop = this.data.searchResults.backdrop_path;
-      console.log('this.data', this.data);
+
   }
 
   onCancel() {
