@@ -68,8 +68,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   openModal(details) {
-    console.log('opened modal');
-
     if (details.result.streamingInfo.us === undefined) {
       alert('No streaming info available for this title');
       return;

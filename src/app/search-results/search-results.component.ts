@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Media } from '../list-page/media.model';
-import { ListService, TitleDetailsResponseData } from '../shared/list.service';
+import { TitleDetailsResponseData } from '../shared/list.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchDetailsComponent } from './search-details/search-details.component';
 import { SearchService } from '../shared/search.service';
@@ -16,11 +16,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy{
   searchResults: TitleDetailsResponseData[] = [];
   searchResult: TitleDetailsResponseData;
   searchDetailsSub: Subscription;
-  searchResultsSub = this.searchService.searchResultsObs.subscribe(obs => {
-    this.searchResults = obs;
-    console.log('this.searchResults', this.searchResults);
-
-  });
+  searchResultsSub: Subscription;
   searchTerm: string;
 
   tmdb_img_baseURL = 'https://image.tmdb.org/t/p/original';
@@ -32,8 +28,15 @@ export class SearchResultsComponent implements OnInit, OnDestroy{
 
     this.searchService.searchTerm.subscribe(search => {
       this.searchTerm = search;
+
     });
-    this.searchService.searchMedia(this.searchTerm);
+
+    this.searchResultsSub = this.searchService.searchResultsObs.subscribe(obs => {
+      this.searchResults = obs;
+
+    });
+
+    // this.searchService.searchMedia(this.searchTerm);
     this.searchDetailsSub = this.searchService.searchDetails.subscribe({
       next: (details: Media) => {
         this.openModal(details)
@@ -44,13 +47,17 @@ export class SearchResultsComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     this.searchDetailsSub.unsubscribe();
-
+    this.searchResultsSub.unsubscribe();
   }
 
   openModal(details) {
-    console.log('opened modal');
+
     this.searchResult = this.searchResults.find(result => result.id === details.result.tmdbId);
 
+    if (details.result.streamingInfo.us === undefined) {
+      alert('No streaming info available for this title');
+      return;
+    }
 
     const detailsInfo: Media = {
       title: details.result.title,
