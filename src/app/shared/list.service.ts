@@ -67,19 +67,13 @@ export class ListService {
   addMedia(media: Media){
     if (!media.service){
       return;
-    } else if (!!media.status && this.myList){
-      this.myList.push(media);
-      this.listObs.next(this.myList.slice());
     } else if (this.myList){
-      media.status = 'Want to Watch!';
       this.myList.push(media);
       this.listObs.next(this.myList.slice());
     } else {
-      media.status = 'Want to Watch!';
       this.myList = [media];
       this.listObs.next(this.myList.slice())
     }
-
     this.updateList(this.myList);
   }
 
@@ -92,7 +86,6 @@ export class ListService {
     this.myList.splice(this.getListIndexByTmdbId(tmdbId),1);
     this.updateList(this.myList);
     this.listObs.next(this.myList.slice());
-    // ** Need to Save myList to Firebase **
   }
 
   getMyList(){
@@ -102,8 +95,8 @@ export class ListService {
   }
 
   getDetails(tmdbId: number){
-    // Building the TMDB API call
 
+    // Building the TMDB API call
     const headerDict = {
       'accept': 'application/json',
       'Authorization': environment.authToken
